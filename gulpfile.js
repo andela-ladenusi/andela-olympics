@@ -21,7 +21,7 @@ var browserify = require('browserify'),
 var paths = {
   public: 'public/**',
   jade: 'app/**/*.jade',
-  styles: 'app/styles/*.styl',
+  styles: 'app/styles/layout.styl',
   scripts: 'app/**/*.js',
   staticFiles: [
     '!app/**/*.+(styl|css|js|jade)',

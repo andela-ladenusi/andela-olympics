@@ -11,5 +11,5 @@
 - Who: Everyone is eligible to play, recruit devs if you’re not technical!
 
 - Prizes (shared by team): To be announced later.
-- Visit [olympics.andela.co](olympics.andela.co) for full rules and to register your team
+- Visit [olympics.andela.co](http://olympics.andela.co) for full rules and to register your team
 

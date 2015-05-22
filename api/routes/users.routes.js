@@ -11,7 +11,7 @@ module.exports = function(app, config) {
       accessToken : data.accessToken,
       gravatar: data.gravatar
     };
-    root.child('user').child(data.uid)
+    root.child('users').child(data.uid)
       .set(user, function(err) {
         if (!err) {
           res.status(200)
@@ -20,27 +20,25 @@ module.exports = function(app, config) {
       });
   });
 
-  app.route('/users/skills').post(function(req, res) {
-    var data = req.body;
-    root.child('users').orderByChild('username')
-    .startAt(data.slack).endAt(data.slack)
-    .on('value', function(snap) {
-      if(snap.val()) {
-        console.log(data);
-        var user = snap.val();
-        var id = (_.keys(user))[0];
-        var skills = data.skills;
-        if(user[id].skills) {
-          skills = _.union(user[id].skills, skills);
+  app.route('/users/team').post(function(req, res) {
+   var team = req.body;
+   root.child('teams').once('value', function(snap) {
+     var data = snap.val();
+     for (var uid in data) {
+       if (uid === team.uid) {
+        return res.json('You can create only one team');
+       } 
+     }
+
+     root.child('teams').child(team.uid)
+      .push(team, function(err) {
+        if (!err) {
+          res.status(200).json('Team Successfully created');
         }
-        root.child('users').child(id).child('skills').set(skills, function(err) {
-          if(!err) {
-            res.json({response: 'Successfully updated you skills'});
-          }
-        });
-      } else {
-        res.json({error: 'This user does not exists'});
-      }
-    });
+      });
+
+   });
   });
+
+  
 };

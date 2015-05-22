@@ -1,7 +1,7 @@
 var development = {
   firebase: {
     rootRefUrl: 'https://andela-olympics-dev.firebaseio.com/',
-    secretKey: 'eMk9rNB5UWkc2E1bw5QPItx4e5JznCZIXzl1deRF'
+    secretKey: 'CpfhmeJ7beezjMuGHYJQalUPfd9Yt8UTKxm73QTI'
   }
 };
 

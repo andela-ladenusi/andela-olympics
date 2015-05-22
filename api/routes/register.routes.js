@@ -27,6 +27,37 @@ module.exports = function(app, config) {
   });
 
   app.route('/competitions/register').post(function(req, res) {
-    
+    competition.once('value', function(snap) {
+      teams = snap.val();
+      var check_if_team_exist = function(data) {
+        return _.findWhere(data.teams, function(val) {
+          return val.team_name === req.body.team_name;
+        });
+      };
+
+      var check_if_competition_exist = function() {
+        return _.findWhere(teams, function(val) {
+          return val.competition_name === req.body.competition_name;
+        });
+      };
+      var competition_exist = check_if_competition_exist();
+      if (competition_exist) {
+        if (check_if_team_exist(competition_exist)) {
+          res.json({
+            error: 'This team already exists'
+          });
+        } else {
+          competition.child(req.body.competition_name).child('teams').child(req.body.team_name).set(req.body, function(error) {
+            if (!error) {
+              res.json(req.body);
+            } else {
+              res.json('error');
+            }
+          });
+        }
+      } else {
+        res.json("invqalid response");
+      }
+    });
   });
 };

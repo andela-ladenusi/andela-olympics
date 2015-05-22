@@ -9,7 +9,8 @@ module.exports = function(app, config) {
     var user = {
       name : data.name,
       accessToken : data.accessToken,
-      gravatar: data.gravatar
+      gravatar: data.gravatar,
+      email: data.email
     };
     root.child('users').child(data.uid)
       .set(user, function(err) {
@@ -20,18 +21,19 @@ module.exports = function(app, config) {
       });
   });
 
-  app.route('/users/team').post(function(req, res) {
+  app.route('/users/:userId/team').post(function(req, res) {
    var team = req.body;
+   team.members = true;
    root.child('teams').once('value', function(snap) {
      var data = snap.val();
      for (var uid in data) {
-       if (uid === team.uid) {
+       if (uid === req.params.userId) {
         return res.json('You can create only one team');
        } 
      }
 
-     root.child('teams').child(team.uid)
-      .push(team, function(err) {
+     root.child('teams').child(req.params.userId)
+      .set(team, function(err) {
         if (!err) {
           res.status(200).json('Team Successfully created');
         }
@@ -40,5 +42,26 @@ module.exports = function(app, config) {
    });
   });
 
-  
+  app.route('/teams/:userId/join').post(function(req, res) {
+   var member = req.body.userId;
+   console.log("member: ", member);
+   root.child('teams').once('value', function(snap) {
+     var data = snap.val();
+     for (var uid in data) {
+       if (data.hasOwnProperty(uid)) {
+
+        data[uid].members = [member];
+         console.log(data[uid]);
+         return;
+         root.child('teams').child(req.params.userId)
+         .update(data[uid], function(err) {
+          if (!err) {
+            res.status(200).json('Successfully joined team');
+          };
+         });
+       }
+     }
+
+   });
+  });
 };

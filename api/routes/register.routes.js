@@ -32,7 +32,9 @@ module.exports = function(app, config) {
           if (!error) {
             res.json(new_competition);
           } else {
-            res.json({error:'error'});
+            res.json({
+              error: 'error'
+            });
           }
         });
       }
@@ -57,7 +59,9 @@ module.exports = function(app, config) {
           if (!error) {
             res.json(existing_competitions);
           } else {
-            res.json({error:'error'});
+            res.json({
+              error: 'error'
+            });
           }
         });
       }
@@ -78,12 +82,16 @@ module.exports = function(app, config) {
             if (!error) {
               res.json(req.body);
             } else {
-              res.json({error:'error'});
+              res.json({
+                error: 'error'
+              });
             }
           });
         }
       } else {
-        res.json({error:"invqalid response"});
+        res.json({
+          error: "invqalid response"
+        });
       }
     });
   });

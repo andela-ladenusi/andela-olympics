@@ -6,20 +6,18 @@ module.exports = function(app, config) {
   var root = new Firebase(config.firebase.rootRefUrl);
   app.route('/users/register').post(function(req, res) {
     var data = req.body;
-    data.skills = true;
-    root.child('users').orderByChild('username')
-    .startAt(data.slack).endAt(data.slack)
-    .on('value', function(snap) {
-      if(snap.val()) {
-        res.json({error: 'This user already exists'});
-      } else {
-        root.child('users').push(data, function(err) {
-          if(!err) {
-            res.json({response: 'Successfully saved your data'});
-          }
-        });
-      }
-    });
+    var user = {
+      name : data.name,
+      accessToken : data.accessToken,
+      gravatar: data.gravatar
+    };
+    root.child('user').child(data.uid)
+      .set(user, function(err) {
+        if (!err) {
+          res.status(200)
+            .send(data);
+        };
+      });
   });
 
   app.route('/users/skills').post(function(req, res) {

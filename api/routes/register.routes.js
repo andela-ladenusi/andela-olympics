@@ -17,6 +17,17 @@ module.exports = function(app, config) {
     });
   };
 
+  app.route('/competitions').get(function(req, res) {
+   competition.once('value', function(snap) {
+      var snapValues = snap.val();
+      if (snapValues) {
+        res.json(snapValues);
+      } else {
+          res.json("invalid competition name");
+      }
+    });
+  });
+
   app.route('/competitions').post(function(req, res) {
     var existing_competitions;
     new_competition = req.body;
@@ -41,6 +52,19 @@ module.exports = function(app, config) {
     });
   });
 
+  app.route('/competitions/:competitionName').get(function(req, res) {
+   competition.once('value', function(snap) {
+      var snapValues = snap.val();
+      snapValues = _.findWhere(snapValues, function(val){
+        return val.competition_name === req.params.competitionName;
+      });
+      if (snapValues) {
+        res.json(snapValues);
+      } else {
+          res.json("invalid competition name");
+      }
+    });
+  });
   app.route('/competitions/:competitionName').put(function(req, res) {
     var existing_competitions;
     competitionName = req.params.competitionName;

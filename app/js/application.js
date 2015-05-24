@@ -22,6 +22,9 @@ Olympics.config(['$routeProvider','$locationProvider',
 			.when('/', {
 				templateUrl: 'views/home.html',
 				controller: 'mainCtrl'
+			})
+			.otherwise({
+				templateUrl: '404.html'
 			});
 	}]);
 

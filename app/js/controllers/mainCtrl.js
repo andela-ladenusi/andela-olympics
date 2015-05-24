@@ -1,7 +1,6 @@
 angular.module('olympics.controllers')
-.controller('mainCtrl',
-  ['$scope', '$state',
-    function($scope, $state) {
-      console.log('FLying Monkeys');
-    }
- ]);
+.controller('mainCtrl', ['$scope',
+	function($scope){
+		console.log('Yo! Fucker');
+	}
+]);

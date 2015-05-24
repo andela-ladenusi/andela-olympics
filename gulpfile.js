@@ -66,7 +66,7 @@ gulp.task('scripts', function() {
 
 gulp.task('browserify', function() {
   var b = browserify();
-  b.add('./app/application.js');
+  b.add('./app/js/application.js');
   return b.bundle()
   .on('success', gutil.log.bind(gutil, 'Browserify Rebundled'))
   .on('error', gutil.log.bind(gutil, 'Browserify Error: in browserify gulp task'))

@@ -7,7 +7,8 @@ angular.module('olympics.services')
       return {
         root: rootRef,
         users: rootRef.child('users'),
-        competitions: rootRef.child('competitions')
+        competitions: rootRef.child('competitions'),
+        bot_olympics: rootRef.child('competitions').child('Bot Olympics'),
       };
     }
   ]);

@@ -105,11 +105,10 @@ module.exports = function(app, config) {
         } else {
           competition.child(req.params.competitionName).child('teams').child(req.body.team_id).set(req.body.name, function(error) {
             if (!error) {
-              competition.child(req.params.competitionName).child('teams').child(req.body.team_id).child('members').set({0:req.body.team_id}, function(error){
-                if(error){
+              competition.child(req.params.competitionName).child('teams').child(req.body.team_id).child('members').child(req.body.team_id).set(true, function(error) {
+                if (error) {
                   res.json('error');
-                }
-                else{
+                } else {
                   res.json(req.body);
                 }
               });
@@ -123,6 +122,53 @@ module.exports = function(app, config) {
       } else {
         res.json({
           error: "invalid response"
+        });
+      }
+    });
+  });
+  app.route('/competitions/:competitionName/teams/:teamId/members').post(function(req, res) {
+    team_id = req.params.teamId;
+    competition_name = req.params.competitionName;
+    competition.child(req.params.competitionName).child('teams').once('value', function(snap) {
+      snapValues = snap.val();
+      team_exist = check_if_team_exist(snapValues, team_id);
+      new_memeber = _.find(team_exist.members, function(val) {
+        return val === req.body.team_id;
+      });
+      if (team_exist && new_memeber === undefined) {
+        competition.child(req.params.competitionName).child('teams').child(team_id).child('members').child(req.body.team_id).set(false, function(error) {
+          if (error) {
+            res.json('error');
+          } else {
+            res.json(req.body);
+          }
+        });
+      }
+    });
+  });
+  app.route('/competitions/:competitionName/teams/:teamId/members/:memberId').put(function(req, res) {
+    team_id = req.params.teamId;
+    competition_name = req.params.competitionName;
+    competition.child(req.params.competitionName).child('teams').child(team_id).child('members').child(req.params.memberId).once('value', function(snap) {
+      snapValues = snap.val();
+      if(snapValues === null){
+        res.json('invalid entry');
+      }
+      else if (!snapValues) {
+        competition.child(req.params.competitionName).child('teams').child(team_id).child('members').child(req.params.memberId).set(true, function(error) {
+          if (error) {
+            res.json('error');
+          } else {
+            res.json(req.params.memberId);
+          }
+        });
+      } else {
+        competition.child(req.params.competitionName).child('teams').child(team_id).child('members').child(req.params.memberId).set(false, function(error) {
+          if (error) {
+            res.json('error');
+          } else {
+            res.json(req.params.memberId);
+          }
         });
       }
     });

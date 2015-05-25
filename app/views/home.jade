@@ -9,6 +9,25 @@ include ../shared/layout
             | consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
             | cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
             | proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+        .row.clear
+          .col.s4.m3.l3
+            .row
+              h2 WHAT?
+            .row
+                {{competition.details.what.description}}
+          .col.s4
+            .row
+              h2 WHO?
+            .row
+                {{competition.details.who.description}}
+          .col.s4
+            .row
+              h2 WHEN?
+            .row
+                | {{competition.details.when.startDate}}
+                | -
+                | {{competition.details.when.endDate}}
+
     .content.teams.row
         h1 Teams
         p.col.s12.m10.l8

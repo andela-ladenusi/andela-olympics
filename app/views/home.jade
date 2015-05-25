@@ -1,6 +1,6 @@
 include ../shared/layout
 .overlay
-    .content.row
+    .content.comp.row
         h1 HOW?
         p.col.s12.m10.l8
             | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -9,7 +9,7 @@ include ../shared/layout
             | consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
             | cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
             | proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-    .content.how.row
+    .content.teams.row
         h1 Teams
         p.col.s12.m10.l8
             .contai.grid
@@ -85,3 +85,14 @@ include ../shared/layout
                     a(href='#') This is a link
         a.btn-floating.btn-large.waves-effect.waves-light.red
             i.mdi-content-add
+
+
+script(type='text/javascript').
+  $(function() {
+    $('.teams-link').on('click', function() {
+      $('.overlay').scrollTo('.content.teams', 800);
+    });
+    $('.comp-details').on('click', function() {
+      $('.overlay').scrollTo('.content.comp', 800);
+    });
+  });

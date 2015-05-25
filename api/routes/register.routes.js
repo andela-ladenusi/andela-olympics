@@ -7,7 +7,7 @@ module.exports = function(app, config) {
 
   var check_if_competition_exist = function(data, id) {
     return _.findWhere(data, function(val) {
-      return val.competition_name === id;
+      return val.name === id;
     });
   };
 
@@ -29,34 +29,45 @@ module.exports = function(app, config) {
   });
 
   app.route('/competitions').post(function(req, res) {
-    var existing_competitions;
-    new_competition = req.body;
+    var existing_competitions, new_competition = req.body;
+    console.log(new_competition);
     new_competition.created_date = Firebase.ServerValue.TIMESTAMP;
-    competition.once('value', function(snap) {
-      check_if_competition_exist = snap.hasChild(new_competition.competition_name);
-      if (check_if_competition_exist) {
-        res.json({
-          error: 'This competition already exists'
-        });
+    competition.child(new_competition.name).set(new_competition, function(error) {
+      if (!error) {
+        res.json(new_competition);
       } else {
-        competition.child(new_competition.competition_name).set(new_competition, function(error) {
-          if (!error) {
-            res.json(new_competition);
-          } else {
-            res.json({
-              error: 'error'
-            });
-          }
+        res.json({
+          error: 'error'
         });
       }
     });
+    // competition.once('value', function(snap) {
+    //   check_if_competition_exist = snap.hasChild(new_competition.name);
+    //   if (check_if_competition_exist) {
+    //     res.json({
+    //       error: 'This competition already exists'
+    //     });
+    //   } else {
+    //     competition.child(new_competition.name).set(new_competition, function(error) {
+    //       if (!error) {
+    //         res.json(new_competition);
+    //       } else {
+    //         res.json({
+    //           error: 'error'
+    //         });
+    //       }
+    //     });
+    //   }
+    // });
   });
 
   app.route('/competitions/:competitionName').get(function(req, res) {
+    console.log('Query - ', req.query);
+    console.log('Params - ', req.params);
    competition.once('value', function(snap) {
       var snapValues = snap.val();
       snapValues = _.findWhere(snapValues, function(val){
-        return val.competition_name === req.params.competitionName;
+        return val.name === req.params.competitionName;
       });
       if (snapValues) {
         res.json(snapValues);

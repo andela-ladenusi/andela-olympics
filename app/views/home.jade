@@ -20,15 +20,19 @@ include ../shared/layout
                     span.card-title Nebula
                       ul
                         li.collection-item.avatar
-                          img.circle(src='../img/ladi.jpg', alt='')
-                          span.title John Doe
-                            p
-                              | Jane Doe
-                              br
-                              |          Kid Doe
+                          .row
+                            .team-member
+                              img.circle.team-avatar(src='../img/ladi.jpg', alt='')
+                              span.title Ladi Adenusi
+                            .team-member
+                              img.circle.team-avatar(src='../img/ladi.jpg', alt='')
+                              span.title Dali Adenusi
+                            .team-member
+                              img.circle.team-avatar(src='../img/ladi.jpg', alt='')
+                              span.title Lida Adenusi
                   .card-action.right-align
                     a(href='#')
-                      i.mdi-navigation-more-vert
+                      i.mdi-social-person-add
               .col.s12.m3
                 .card.blue-grey.darken-1
                   .card-content.white-text

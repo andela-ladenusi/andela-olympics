@@ -77,26 +77,35 @@ body
     right 80px
     top 0
     height 100%
-    display table-row
-    a
+    .profile-details
+      height 80px
+      text-align center
+      padding 0 10px
+      color #000
+      &:hover
+        background-color #fff
+        color #EE6E73
+      img
+        border-radius 50% 50%
+        height 50px
+        width 50px
+        border 4px solid #EE6E73
+        
+      img, span
+        line-height 80px
+    .btn-login
       height 80px
       padding 0 30px
-      width auto
-      border-radius 0
       background-color #EE6E73
       color #fff
-      font-size 24px
-      font-weight 200
+      font-weight 400
       text-align center
       display inline-block
-      vertical-align middle
       line-height 80px
-      text-transform uppercase
-      position relative
       color #EE6E73
       background-color #fff
-      vertical-align middle
       font-size 1.0em
+      cursor pointer
       &:hover
         background-color #EE6E73
         color #fff
@@ -163,9 +172,6 @@ TEAM VIEW
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-
-body
-  font-family: sans-serif;
 
 /* clear fix */
 .grid:after

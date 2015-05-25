@@ -4,30 +4,4 @@ html(lang="en" ng-app='Olympics')
         title Andela Olympics
         include shared/head
     body
-        .wrapper
-            .sidenav
-                .logo
-                    img.responsive-img(src='img/olympic.png')
-                .expander.hide-on-med-and-up
-                    a(href='#')
-                        i.mdi-navigation-menu.small
-                ul.side-menu
-                    li.active
-                        a(href='#')
-                            i.mdi-navigation-apps.small
-                    li
-                        a.how-link(href='#')
-                            i.mdi-social-people.small
-            .top-nav.row
-                .nav-container
-                    .app-name.col.s11.m3.l3.valign-wrapper
-                        h3.uppercase.valign.center-align Andela Olympics
-                    .welcome.hide-on-small-only
-                        a.btn-signup(href='#')
-                            span Sign up
-                        //- a.btn-login(href='#')
-                            span Login
-            video#bgvid.hide-on-med-and-down(autoplay='', loop='', poster='')
-                source(src='media/hackdown.webm', type='video/webm')
-                source(src='media/hackdown.mp4', type='video/mp4')
-            .overlay(ng-view)
+        .wrapper(ng-view)

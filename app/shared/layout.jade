@@ -4,17 +4,17 @@
     .expander.hide-on-med-and-up
         a(href='#')
             i.mdi-navigation-menu.small
-    ul.side-menu
-        li.active
-            a(href='#')
+    ul.side-menu(ng-init='selected = 1')
+        li(ng-class='{active: selected === 1, inactive: !selected}')
+            a.comp-details(href='#' ng-click='selected = 1')
                 i.mdi-navigation-apps.small
-        li
-            a.how-link(href='#')
+        li(ng-class='{active: selected === 2, inactive: !selected}')
+            a.teams-link(href='#' ng-click='selected = 2')
                 i.mdi-social-people.small
 .top-nav.row
     .nav-container
         .app-name.col.s11.m3.l3.valign-wrapper
-            h3.uppercase.valign.center-align Andela Olympics {{ladi}}
+            h3.uppercase.valign.center-align Andela Olympics
         .welcome.hide-on-small-only
             a.profile-details(ng-if='currentUser')
                 img(ng-src='{{currentUser.picture}}')

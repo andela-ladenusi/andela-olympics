@@ -105,7 +105,14 @@ module.exports = function(app, config) {
         } else {
           competition.child(req.params.competitionName).child('teams').child(req.body.team_id).set(req.body, function(error) {
             if (!error) {
-              res.json(req.body);
+              competition.child(req.params.competitionName).child('teams').child(req.body.team_id).child('members').set({0:req.body.team_id}, function(error){
+                if(error){
+                  res.json('error');
+                }
+                else{
+                  res.json(req.body);
+                }
+              });
             } else {
               res.json({
                 error: 'error'
@@ -115,7 +122,7 @@ module.exports = function(app, config) {
         }
       } else {
         res.json({
-          error: "invqalid response"
+          error: "invalid response"
         });
       }
     });

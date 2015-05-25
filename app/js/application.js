@@ -11,6 +11,8 @@ require('./controllers/mainCtrl.js');
 
 window.Olympics = angular.module('Olympics', [
 	'ngRoute',
+	'ngCookies',
+	'firebase',
 	'olympics.controllers',
 	'olympics.services'
 ]);
@@ -27,6 +29,26 @@ Olympics.config(['$routeProvider','$locationProvider',
 				templateUrl: '404.html'
 			});
 	}]);
+
+Olympics.run(['$rootScope', 'Authentication', 'Refs',
+  function($rootScope, Authentication, Refs) {
+  	Refs.root.onAuth(function(authData) {
+  		if(authData) {
+  			var user = {
+          uid: authData.uid,
+          name: authData.google.displayName,
+          email: authData.google.email,
+          accessToken: authData.google.accessToken,
+          picture: authData.google.cachedUserProfile.picture
+        };
+  			$rootScope.currentUser = user;
+  			return $rootScope.currentUser;
+  		}
+      else {
+      	Authentication.logout();
+      }
+    });
+  }]);
 
 
 

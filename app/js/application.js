@@ -6,6 +6,7 @@ angular.module('olympics.services', []);
 require('./services/auth.js');
 require('./services/refs.js');
 require('./services/competitions.js');
+require('./services/user.js');
 
 // loading controller
 require('./controllers/mainCtrl.js');

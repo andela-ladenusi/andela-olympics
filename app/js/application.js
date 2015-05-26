@@ -7,6 +7,7 @@ require('./services/auth.js');
 require('./services/refs.js');
 require('./services/competitions.js');
 require('./services/user.js');
+require('./services/http.requests.js');
 
 
 // loading controller

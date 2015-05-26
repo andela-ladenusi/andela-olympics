@@ -143,10 +143,10 @@ module.exports = function(app, config) {
       snapValues = snap.val();
       team_exist = check_if_team_exist(snapValues, team_id);
       new_memeber = _.find(team_exist.members, function(val) {
-        return val === req.body.team_id;
+        return val === req.body.user_id;
       });
       if (team_exist && new_memeber === undefined) {
-        competition.child(req.params.competitionName).child('teams').child(team_id).child('members').child(req.body.team_id).set(false, function(error) {
+        competition.child(req.params.competitionName).child('teams').child(team_id).child('members').child(req.body.user_id).set(false, function(error) {
           if (error) {
             res.json('error');
           } else {

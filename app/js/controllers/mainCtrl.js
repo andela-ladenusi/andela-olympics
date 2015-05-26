@@ -14,8 +14,8 @@ angular.module('olympics.controllers')
 		};
 
 		$scope.init = function() {
-			var competition = Competitions.botOlympics();
-			competition.$loaded().then(function(data) {
+			var competitions = Competitions.botOlympics();
+			competitions.$loaded().then(function(data) {
 				_.forEach(data.teams, function(team, team_id) {
 					var members = [];
 					for(var i in team.members) {
@@ -23,9 +23,7 @@ angular.module('olympics.controllers')
 						team.members[i] = profile;
 					}
 				});
-				competition.$bindTo($scope, "competition");
-				// $scope.competition = data;
-				console.log(data);
+				$scope.competition = data;
 			});
 		};
 
@@ -35,7 +33,7 @@ angular.module('olympics.controllers')
 			var url 		= '/competitions/Bot Olympics/teams/' + team_id + '/members/',
 					object 	= {user_id: $rootScope.currentUser.uid};
 			console.log(url, object);
-			Requests.joinTeam(url, object);
+			Requests.joinTeam(url, object, $scope.init);
 		};
 
 		$scope.registerTeam = function(team_id) {

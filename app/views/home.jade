@@ -1,27 +1,37 @@
 include ../shared/layout
 .overlay
     .content.comp.row
-        h1 HOW?
+        h1 WHAT?
         p.col.s12.m10.l8
-            | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            | tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+
             | quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
             | consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
             | cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
             | proident, sunt in culpa qui officia deserunt mollit anim id est laborum
         .row.clear
-          .col.s4.m3.l3
-              h2 WHAT?
-              p {{competition.details.what.description}}
-          .col.s4
-              h2 WHO?
-              p {{competition.details.who.description}}
-          .col.s4
-              h2 WHEN?
-              p
-                | {{competition.details.when.startDate}}
-                | -
-                | {{competition.details.when.endDate}}
+          .row
+            .col.s12.m3
+              .card.blue-grey.darken-1
+                .card-content.white-text
+                  span.card-title HOW?
+                  p
+                    | {{competition.details.when.startDate}}
+                    | -
+                    | {{competition.details.when.endDate}}
+            .col.s12.m3
+              .card.blue-grey.darken-1
+                .card-content.white-text
+                  span.card-title WHEN?
+                  p
+                    | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    | tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            .col.s12.m3
+              .card.blue-grey.darken-1
+                .card-content.white-text
+                  span.card-title HOW?
+                  p
+                    | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    | tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,            .col.s4
 
     .content.teams.row
         h1 Teams

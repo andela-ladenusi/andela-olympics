@@ -41,7 +41,7 @@ module.exports = function(app, config) {
       if (snapValues) {
         res.json(snapValues);
       } else {
-        res.json("invalid competition name");
+        res.json({error:"invalid competition name"});
       }
     });
   });
@@ -55,7 +55,7 @@ module.exports = function(app, config) {
         res.json(new_competition);
       } else {
         res.json({
-          error: 'error'
+          error: 'Could create a new competition'
         });
       }
     });
@@ -88,7 +88,7 @@ module.exports = function(app, config) {
       if (snapValues) {
         res.json(snapValues);
       } else {
-        res.json("invalid competition name");
+        res.json({error:"invalid competition name"});
       }
     });
   });
@@ -111,7 +111,7 @@ module.exports = function(app, config) {
             res.json(existing_competitions);
           } else {
             res.json({
-              error: 'error'
+              error: 'You can\'t update this competition'
             });
           }
         });
@@ -136,14 +136,14 @@ module.exports = function(app, config) {
           if (!error) {
             competition.child(req.params.competitionName).child('teams').child(req.body.team_id).child('members').child(req.body.team_id).set(true, function(error) {
               if (error) {
-                res.json({error: 'error'});
+                res.json({error: 'you were unable to join the team automatically'});
               } else {
                 res.json(req.body);
               }
             });
           } else {
             res.json({
-              error: 'error'
+              error: 'Team not successfully created'
             });
           }
         });
@@ -176,11 +176,11 @@ app.route('/competitions/:competitionName/register/:registerId').put(function(re
     competition.child(req.params.competitionName).child('teams').once('value', function(snap) {
       snapValues = snap.val();
       team_exist = check_if_team_exist(snapValues, team_id);
-      check_for_team_id(snapValues, req.body.team_id);
+       new_member = check_for_team_id(snapValues, req.body.team_id);
       if (team_exist && !new_memeber) {
         competition.child(req.params.competitionName).child('teams').child(team_id).child('members').child(req.body.user_id).set(false, function(error) {
           if (error) {
-            res.json({error:'error'});
+            res.json({error:'Your could not join this team'});
           } else {
             res.json(req.body);
           }
@@ -200,7 +200,7 @@ app.route('/competitions/:competitionName/register/:registerId').put(function(re
       else if (!snapValues) {
         competition.child(req.params.competitionName).child('teams').child(team_id).child('members').child(req.params.memberId).set(true, function(error) {
           if (error) {
-            res.json({error:'error'});
+            res.json({error:'You can\'t join the team'});
           } else {
             res.json(req.params.memberId);
           }
@@ -208,7 +208,7 @@ app.route('/competitions/:competitionName/register/:registerId').put(function(re
       } else {
         competition.child(req.params.competitionName).child('teams').child(team_id).child('members').child(req.params.memberId).set(false, function(error) {
           if (error) {
-            res.json({error: 'error'});
+            res.json({error: 'You can\'t join the team'});
           } else {
             res.json(req.params.memberId);
           }

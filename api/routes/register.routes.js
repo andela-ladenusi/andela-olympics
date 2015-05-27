@@ -12,6 +12,23 @@ module.exports = function(app, config) {
     });
   };
 
+  var check_for_team_id = function(data, id){
+    team_id_available = false;
+    _.forEach(data, function(val, key){
+      if(key === id) {
+        team_id_available = true;
+        return team_id_available;
+      }
+      else{
+      _.forEach(val.members, function(val, key){
+        if (key === id) {
+          team_id_available = true;
+          return team_id_available;
+        }
+      });
+      }
+    });
+  };
   var check_if_team_exist = function(data, team_id) {
     return _.findWhere(data, function(val, key) {
       return key === team_id;
@@ -103,49 +120,61 @@ module.exports = function(app, config) {
   });
 
   app.route('/competitions/:competitionName/register').post(function(req, res) {
-    competition.once('value', function(snap) {
+    competition.child(req.params.competitionName).child('teams').once('value', function(snap) {
       var teams = snap.val();
-      var competition_exist = check_if_competition_exist(teams, req.params.competitionName);
-      if (competition_exist) {
-        var available_teams = check_if_team_exist(competition_exist.teams, req.body.team_id);
-        if (available_teams) {
-          res.json({
-            error: 'This team already exists'
-          });
-        } else {
-          competition.child(req.params.competitionName).child('teams').child(req.body.team_id).set({ name: req.body.name, description: req.body.description }, function(error) {
-            if (!error) {
-              competition.child(req.params.competitionName).child('teams').child(req.body.team_id).child('members').child(req.body.team_id).set(true, function(error) {
-                if (error) {
-                  res.json('error');
-                } else {
-                  res.json(req.body);
-                }
-              });
-            } else {
-              res.json({
-                error: 'error'
-              });
-            }
-          });
-        }
-      } else {
+      check_for_team_id(teams, req.body.team_id);
+      if (team_id_available) {
         res.json({
-          error: "invalid response"
+          error: 'You are already a memeber of a team'
+        });
+      } else {
+        competition.child(req.params.competitionName).child('teams').child(req.body.team_id).set({
+          name: req.body.name,
+          description: req.body.description,
+          registered: false
+        }, function(error) {
+          if (!error) {
+            competition.child(req.params.competitionName).child('teams').child(req.body.team_id).child('members').child(req.body.team_id).set(true, function(error) {
+              if (error) {
+                res.json('error');
+              } else {
+                res.json(req.body);
+              }
+            });
+          } else {
+            res.json({
+              error: 'error'
+            });
+          }
         });
       }
     });
   });
+
+app.route('/competitions/:competitionName/register/:registerId').put(function(req, res) {
+  competition.child(req.params.competitionName).child('teams').once('value', function(snap) {
+    team_id_available = snap.hasChild(req.body.registerId);
+    if (!team_id_available) {
+      res.json({
+        error: 'Team does not exist'
+      });
+    } else {
+      competition.child(req.params.competitionName).child('teams').child(req.body.team_id).set({
+        registered: true
+      });
+    }
+  });
+});
+
+
   app.route('/competitions/:competitionName/teams/:teamId/members').post(function(req, res) {
     team_id = req.params.teamId;
     competition_name = req.params.competitionName;
     competition.child(req.params.competitionName).child('teams').once('value', function(snap) {
       snapValues = snap.val();
       team_exist = check_if_team_exist(snapValues, team_id);
-      new_memeber = _.find(team_exist.members, function(val) {
-        return val === req.body.user_id;
-      });
-      if (team_exist && new_memeber === undefined) {
+      check_for_team_id(snapValues, req.body.team_id);
+      if (team_exist && !new_memeber) {
         competition.child(req.params.competitionName).child('teams').child(team_id).child('members').child(req.body.user_id).set(false, function(error) {
           if (error) {
             res.json('error');

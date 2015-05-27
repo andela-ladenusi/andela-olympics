@@ -6,15 +6,7 @@ angular.module('olympics.services')
           $http.post(url, object)
           .success(function(data) {
             console.log(data);
-            // var member_url = '/competitions/:competitionName/teams/:teamId/members';
-            // $http.post(member_url, member)
-            // .success(function(childData) {
-            //   console.log(childData);
-            //   callback();
-            // })
-            // .error(function(err) {
-            //   return err;
-            // });
+            callback();
           })
           .error(function(err) {
             return err;

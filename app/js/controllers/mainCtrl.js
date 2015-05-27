@@ -32,8 +32,7 @@ angular.module('olympics.controllers')
 		$scope.createTeam = function() {
 			var url = '/competitions/Bot Olympics/register';
 			$scope.team.team_id = $rootScope.currentUser.uid;
-			console.log($scope.team);
-			Requests.createTeam(url, $scope.team);
+			Requests.createTeam(url, $scope.team, $scope.init);
 		};
 
 		$scope.joinTeam = function(team_id) {

@@ -153,18 +153,21 @@ module.exports = function(app, config) {
 
 app.route('/competitions/:competitionName/register/:registerId').put(function(req, res) {
   competition.child(req.params.competitionName).child('teams').once('value', function(snap) {
-    team_id_available = snap.hasChild(req.body.registerId);
+    team_id_available = snap.hasChild(req.params.registerId);
+    registered_team = _.findWhere(snap.val(), function(val, key) {
+      return key === req.params.registerId;
+    });
     if (!team_id_available) {
       res.json({
         error: 'Team does not exist'
       });
     } else {
-      competition.child(req.params.competitionName).child('teams').child(req.body.team_id).set({
-        registered: true
-      });
+      registered_team.registered = true;
+      competition.child(req.params.competitionName).child('teams').child(req.body.team_id).set(registered_team);
     }
   });
 });
+
 
 
   app.route('/competitions/:competitionName/teams/:teamId/members').post(function(req, res) {
@@ -185,6 +188,7 @@ app.route('/competitions/:competitionName/register/:registerId').put(function(re
       }
     });
   });
+
   app.route('/competitions/:competitionName/teams/:teamId/members/:memberId').put(function(req, res) {
     team_id = req.params.teamId;
     competition_name = req.params.competitionName;

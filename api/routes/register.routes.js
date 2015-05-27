@@ -113,7 +113,7 @@ module.exports = function(app, config) {
             error: 'This team already exists'
           });
         } else {
-          competition.child(req.params.competitionName).child('teams').child(req.body.team_id).set(req.body.name, function(error) {
+          competition.child(req.params.competitionName).child('teams').child(req.body.team_id).set({ name: req.body.name, description: req.body.description }, function(error) {
             if (!error) {
               competition.child(req.params.competitionName).child('teams').child(req.body.team_id).child('members').child(req.body.team_id).set(true, function(error) {
                 if (error) {

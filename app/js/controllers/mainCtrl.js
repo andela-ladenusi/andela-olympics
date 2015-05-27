@@ -36,8 +36,11 @@ angular.module('olympics.controllers')
 			Requests.joinTeam(url, object, $scope.init);
 		};
 
-		$scope.registerTeam = function(team_id) {
-			var url = '/competitions/Bot Olympics/register', object;
+		$scope.registerTeam = function() {
+			$scope.team.team_id = $rootScope.currentUser.uid;
+			var url = '/competitions/Bot Olympics/register';
+			Requests.registerTeam(url, $scope.team);
 		};
+
 	}
 ]);

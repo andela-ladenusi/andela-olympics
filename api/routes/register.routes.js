@@ -136,7 +136,7 @@ module.exports = function(app, config) {
           if (!error) {
             competition.child(req.params.competitionName).child('teams').child(req.body.team_id).child('members').child(req.body.team_id).set(true, function(error) {
               if (error) {
-                res.json('error');
+                res.json({error: 'error'});
               } else {
                 res.json(req.body);
               }
@@ -180,7 +180,7 @@ app.route('/competitions/:competitionName/register/:registerId').put(function(re
       if (team_exist && !new_memeber) {
         competition.child(req.params.competitionName).child('teams').child(team_id).child('members').child(req.body.user_id).set(false, function(error) {
           if (error) {
-            res.json('error');
+            res.json({error:'error'});
           } else {
             res.json(req.body);
           }
@@ -195,12 +195,12 @@ app.route('/competitions/:competitionName/register/:registerId').put(function(re
     competition.child(req.params.competitionName).child('teams').child(team_id).child('members').child(req.params.memberId).once('value', function(snap) {
       snapValues = snap.val();
       if(snapValues === null){
-        res.json('invalid entry');
+        res.json({error: 'invalid entry'});
       }
       else if (!snapValues) {
         competition.child(req.params.competitionName).child('teams').child(team_id).child('members').child(req.params.memberId).set(true, function(error) {
           if (error) {
-            res.json('error');
+            res.json({error:'error'});
           } else {
             res.json(req.params.memberId);
           }
@@ -208,7 +208,7 @@ app.route('/competitions/:competitionName/register/:registerId').put(function(re
       } else {
         competition.child(req.params.competitionName).child('teams').child(team_id).child('members').child(req.params.memberId).set(false, function(error) {
           if (error) {
-            res.json('error');
+            res.json({error: 'error'});
           } else {
             res.json(req.params.memberId);
           }

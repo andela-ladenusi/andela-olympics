@@ -24,15 +24,37 @@ angular.module('olympics.services')
     			});
     		},
 
-    		registerTeam: function(url, object) {
-    			$http.post(url, object)
+    		registerTeam: function(url, object, callback) {
+    			$http.put(url, object)
     			.success(function(data) {
     				console.log(data);
+            callback();
     			})
     			.error(function(err) {
     				return err;
     			});
-    		}
+    		},
+        acceptMember: function(url, object, callback) {
+          $http.put(url, object)
+          .success(function(data) {
+            console.log(data);
+            callback();
+          })
+          .error(function(err) {
+            return err;
+          });
+        },
+
+        declineMember: function(url, object, callback) {
+          $http.put(url, object)
+          .success(function(data) {
+            console.log(data);
+            callback();
+          })
+          .error(function(err) {
+            return err;
+          });
+        }
     	};
     }
   ]);

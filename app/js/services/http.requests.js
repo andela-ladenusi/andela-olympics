@@ -6,7 +6,7 @@ angular.module('olympics.services')
           $http.post(url, object)
           .success(function(data) {
             if(data.error) {
-              Materialize.toast('ERROR: Team could not be created!\nPlease, try again later.', 5000, 'red darken-3');
+              Materialize.toast('ERROR: ' + data.error, 5000, 'red darken-3');
               return data.error;
             }
             console.log(data);
@@ -23,12 +23,12 @@ angular.module('olympics.services')
     			$http.post(url, object)
     			.success(function(data) {
             if(data.error) {
-              Materialize.toast('ERROR: Team could not be joined!\nPlease, try again later.', 5000, 'red darken-3');
+              Materialize.toast('ERROR: ' + data.error, 5000, 'red darken-3');
               return data.error;
             }
     				console.log(data);
             callback();
-            Materialize.toast('You have successfully joined the team!', 8000, 'teal accent-4');
+            Materialize.toast('You have successfully joined the team!', 5000, 'teal accent-4');
     			})
     			.error(function(err) {
             Materialize.toast('ERROR: Team could not be joined!\nPlease, try again later.', 5000, 'red darken-3');
@@ -40,7 +40,7 @@ angular.module('olympics.services')
     			$http.put(url, object)
     			.success(function(data) {
             if(data.error) {
-              Materialize.toast('ERROR: Team could not be registered!\nPlease, try again later.', 5000, 'red darken-3');
+              Materialize.toast('ERROR: ' + data.error, 5000, 'red darken-3');
               return data.error;
             }
     				console.log(data);
@@ -56,7 +56,7 @@ angular.module('olympics.services')
           $http.put(url, object)
           .success(function(data) {
             if(data.error) {
-              Materialize.toast('ERROR: Member could not be accepted!\nPlease, try again later.', 5000, 'red darken-3');
+              Materialize.toast('ERROR: ' + data.error, 5000, 'red darken-3');
               return data.error;
             }
             console.log(data);
@@ -73,7 +73,7 @@ angular.module('olympics.services')
           $http.put(url, object)
           .success(function(data) {
             if(data.error) {
-              Materialize.toast('ERROR: Member could not be rejected!\nPlease, try again later.', 5000, 'red darken-3');
+              Materialize.toast('ERROR: ' + data.error, 5000, 'red darken-3');
               return data.error;
             }
             console.log(data);

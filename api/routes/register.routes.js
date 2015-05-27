@@ -28,6 +28,7 @@ module.exports = function(app, config) {
       });
       }
     });
+    return team_id_available;
   };
   var check_if_team_exist = function(data, team_id) {
     return _.findWhere(data, function(val, key) {
@@ -176,7 +177,7 @@ app.route('/competitions/:competitionName/register/:registerId').put(function(re
     competition.child(req.params.competitionName).child('teams').once('value', function(snap) {
       snapValues = snap.val();
       team_exist = check_if_team_exist(snapValues, team_id);
-       new_member = check_for_team_id(snapValues, req.body.team_id);
+       new_member = check_for_team_id(snapValues, req.body.user_id);
       if (team_exist && !new_member) {
         competition.child(req.params.competitionName).child('teams').child(team_id).child('members').child(req.body.user_id).set(false, function(error) {
           if (error) {
@@ -185,6 +186,9 @@ app.route('/competitions/:competitionName/register/:registerId').put(function(re
             res.json(req.body);
           }
         });
+      }
+      else{
+        res.json({error: 'You are already a member of a team'});
       }
     });
   });

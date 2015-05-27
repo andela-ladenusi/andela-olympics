@@ -21,6 +21,7 @@ angular.module('olympics.services')
                 $timeout(function() {
                   self.user = data;
                 });
+                Materialize.toast('You have successfully logged in!', 5000, 'teal accent-4');
                 return;
               })
               .error(function(error) {

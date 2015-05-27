@@ -4,13 +4,12 @@ angular.module('olympics.controllers')
 
 		$scope.login = function() {
 			Authentication.login();
-			console.log('You just logged in');
 		};
 
 		$scope.logout = function() {
 			Authentication.logout();
 			$location.url('/');
-			console.log('You just logged out');
+      Materialize.toast('You have successfully logged out!', 5000, 'teal accent-4');
 		};
 
 		$scope.init = function() {

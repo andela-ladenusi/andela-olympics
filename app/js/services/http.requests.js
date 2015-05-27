@@ -5,10 +5,16 @@ angular.module('olympics.services')
         createTeam: function(url, object, callback) {
           $http.post(url, object)
           .success(function(data) {
+            if(data.error) {
+              Materialize.toast('ERROR: Team could not be created!\nPlease, try again later.', 5000, 'red darken-3');
+              return data.error;
+            }
             console.log(data);
             callback();
+            Materialize.toast('Your team was created!', 5000, 'teal accent-4');
           })
           .error(function(err) {
+            Materialize.toast('ERROR: Team could not be created!\nPlease, try again later.', 5000, 'red darken-3');
             return err;
           });
         },
@@ -16,10 +22,16 @@ angular.module('olympics.services')
     		joinTeam: function(url, object, callback) {
     			$http.post(url, object)
     			.success(function(data) {
+            if(data.error) {
+              Materialize.toast('ERROR: Team could not be joined!\nPlease, try again later.', 5000, 'red darken-3');
+              return data.error;
+            }
     				console.log(data);
             callback();
+            Materialize.toast('You have successfully joined the team!', 8000, 'teal accent-4');
     			})
     			.error(function(err) {
+            Materialize.toast('ERROR: Team could not be joined!\nPlease, try again later.', 5000, 'red darken-3');
     				return err;
     			});
     		},
@@ -27,20 +39,32 @@ angular.module('olympics.services')
     		registerTeam: function(url, object, callback) {
     			$http.put(url, object)
     			.success(function(data) {
+            if(data.error) {
+              Materialize.toast('ERROR: Team could not be registered!\nPlease, try again later.', 5000, 'red darken-3');
+              return data.error;
+            }
     				console.log(data);
             callback();
+            Materialize.toast('Your team was successfully registered!', 5000, 'teal accent-4');
     			})
     			.error(function(err) {
+            Materialize.toast('ERROR: Team could not be registered!\nPlease, try again later.', 5000, 'red darken-3');
     				return err;
     			});
     		},
         acceptMember: function(url, object, callback) {
           $http.put(url, object)
           .success(function(data) {
+            if(data.error) {
+              Materialize.toast('ERROR: Member could not be accepted!\nPlease, try again later.', 5000, 'red darken-3');
+              return data.error;
+            }
             console.log(data);
             callback();
+            Materialize.toast('Member has been successfully accepted!', 5000, 'teal accent-4');
           })
           .error(function(err) {
+            Materialize.toast('ERROR: Member could not be accepted!\nPlease, try again later.', 5000, 'red darken-3');
             return err;
           });
         },
@@ -48,10 +72,16 @@ angular.module('olympics.services')
         declineMember: function(url, object, callback) {
           $http.put(url, object)
           .success(function(data) {
+            if(data.error) {
+              Materialize.toast('ERROR: Member could not be rejected!\nPlease, try again later.', 5000, 'red darken-3');
+              return data.error;
+            }
             console.log(data);
             callback();
+            Materialize.toast('Member has been successfully rejected!', 5000, 'teal accent-4');
           })
           .error(function(err) {
+            Materialize.toast('ERROR: Member could not be rejected!\nPlease, try again later.', 5000, 'red darken-3');
             return err;
           });
         }

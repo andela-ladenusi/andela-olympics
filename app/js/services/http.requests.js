@@ -55,7 +55,7 @@ angular.module('olympics.services')
     		},
         
         acceptMember: function(url, callback) {
-          $http.put(url, object)
+          $http.put(url)
           .success(function(data) {
             if(data.error) {
               Materialize.toast('ERROR: ' + data.error, 5000, 'red darken-3');
@@ -72,7 +72,7 @@ angular.module('olympics.services')
         },
 
         declineMember: function(url, callback) {
-          $http.put(url, object)
+          $http.delete(url)
           .success(function(data) {
             if(data.error) {
               Materialize.toast('ERROR: ' + data.error, 5000, 'red darken-3');

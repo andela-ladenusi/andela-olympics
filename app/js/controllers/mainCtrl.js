@@ -43,7 +43,19 @@ angular.module('olympics.controllers')
 
 		$scope.registerTeam = function(team_id) {
 			var url = '/competitions/Bot Olympics/register/' + team_id;
-			Requests.registerTeam(url, {registerId: team_id, user_id: $scope.currentUser.uid});
+			Requests.registerTeam(url, {registerId: team_id, user_id: $rootScope.currentUser.uid});
+		};
+
+		$scope.acceptMember = function(memberId) {
+			$scope.team_id =  $rootScope.currentUser.uid;
+			var url = '/competitions/Bot Olympics/teams/' + $scope.team_id + '/members/' + memberId;
+			Requests.acceptMember(url, $scope.init);
+		};
+
+		$scope.declineMember = function(memberId) {
+			$scope.team_id =  $rootScope.currentUser.uid;
+			var url = '/competitions/Bot Olympics/teams/' + $scope.team_id + '/members/' + memberId;
+			Requests.declineMember(url, $scope.init);
 		};
 
 	}

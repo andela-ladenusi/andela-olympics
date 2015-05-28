@@ -200,6 +200,32 @@ app.route('/competitions/:competitionName/register').put(function(req, res) {
     });
   });
 
+  app.route('/competitions/:competitionName/teams/:teamId/members/:memberId').delete(function(req, res) {
+    team_id = req.params.teamId;
+    competition_name = req.params.competitionName;
+    competition.child(req.params.competitionName).child('teams').child(team_id).child('members').once('value', function(snap) {
+      snapValues = snap.hasChild(req.params.memberId);
+      if (!snapValues) {
+        res.json({
+          error: 'invalid member'
+        });
+      } else {
+        competition.child(req.params.competitionName).child('teams').child(team_id).child('members').child(req.params.memberId).set(null, function(error) {
+          if (error) {
+            res.json({
+              error: 'Not successfully deleted'
+            });
+          } else {
+            res.json({
+              success: req.params.memberId + 'successfully deleted'
+            });
+          }
+        });
+      }
+    });
+  });
+
+
   app.route('/competitions/:competitionName/teams/:teamId/members/:memberId').put(function(req, res) {
     team_id = req.params.teamId;
     competition_name = req.params.competitionName;

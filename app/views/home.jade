@@ -34,12 +34,16 @@ include ../shared/layout
         .row
           .col.s12.l3.m6(ng-repeat='(team_id, team) in competition.teams')
             .card.team-card.trans
-              .card-image.waves-effect.waves-block.waves-light
+              .waves-effect.waves-block.waves-light
                 .team-list
                   ul.team-member(ng-repeat='member in team.members')
-                    li.collection-item.avatar
-                      img.circle(ng-src='{{member.picture}}')
-                      span.title {{member.name}}
+                    a(href='www.google.com')
+                      li.collection-item.avatar
+                        img.circle(ng-src='{{member.picture}}')
+                        span.title {{member.name}}
+                    .col.s2
+                      i.mdi-action-done
+                      i.mdi-action-highlight-remove
               .card-content
                 span.card-title.activator.grey-text.text-darken-4
                   | {{team.name}}

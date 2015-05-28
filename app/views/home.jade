@@ -61,7 +61,7 @@ include ../shared/layout
                     i.mdi-social-person-add
                   a(href='#' ng-click='registerTeam(team_id)' ng-if='currentUser.uid === team_id')
                     i.mdi-content-send
-        a.btn-floating.btn-large.waves-effect.waves-light.red.modal-trigger(href='#create-team-modal')
+        a.btn-floating.btn-large.waves-effect.waves-light.red.modal-trigger.btn.tooltipped(href='#create-team-modal' data-tooltip="Create a Team" data-position="right" data-delay="50")
             i.mdi-content-add
 include modals/create-team
 
@@ -75,4 +75,5 @@ script(type='text/javascript').
     $('.comp-details').on('click', function() {
       $('.overlay').scrollTo('.content.comp', 800);
     });
+    $('.tooltipped').tooltip({"delay": 50});
   });

@@ -152,23 +152,30 @@ module.exports = function(app, config) {
     });
   });
 
-app.route('/competitions/:competitionName/register/:registerId').put(function(req, res) {
+app.route('/competitions/:competitionName/register').put(function(req, res) {
   competition.child(req.params.competitionName).child('teams').once('value', function(snap) {
-    team_id_available = snap.hasChild(req.params.registerId);
+    team_id_available = snap.hasChild(req.body.team_id);
     registered_team = _.findWhere(snap.val(), function(val, key) {
-      return key === req.params.registerId;
+      return key === req.body.team_id;
     });
+    check_for_false_in_team = _.contains(registered_team.members, false);
     if (!team_id_available) {
       res.json({
         error: 'Team does not exist'
       });
     } else {
-      registered_team.registered = true;
-      competition.child(req.params.competitionName).child('teams').child(req.body.team_id).set(registered_team);
+      if (check_for_false_in_team) {
+        res.json({
+          error: 'You have a pending request for your team'
+        });
+      } else {
+        registered_team.registered = true;
+        competition.child(req.params.competitionName).child('teams').child(req.body.team_id).set(registered_team);
+
+      }
     }
   });
 });
-
 
 
   app.route('/competitions/:competitionName/teams/:teamId/members').post(function(req, res) {

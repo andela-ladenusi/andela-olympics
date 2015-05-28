@@ -15,18 +15,17 @@ angular.module('olympics.controllers')
 		$scope.init = function() {
 			var competitions = Competitions.botOlympics();
 			competitions.$loaded().then(function(data) {
-				_.forEach(data.teams, function(team, team_id) {
-					var members = [];
-					for(var i in team.members) {
-						var profile = UserDetails.profile(i);
-						team.members[i] = profile;
-					}
-				});
+				// _.forEach(data.teams, function(team, team_id) {
+				// 	var members = [];
+				// 	for(var i in team.members) {
+				// 		var profile = UserDetails.profile(i);
+				// 		team.members[i] = profile;
+				// 	}
+				// });
 				$scope.competition = data;
 			});
 		};
 
-		$scope.init();
 
 		$scope.createTeam = function() {
 			var url = '/competitions/Bot Olympics/register';
@@ -58,5 +57,6 @@ angular.module('olympics.controllers')
 			Requests.declineMember(url, $scope.init);
 		};
 
+		$scope.init();
 	}
 ]);

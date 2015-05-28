@@ -41,9 +41,11 @@ include ../shared/layout
                       li.collection-item.avatar
                         img.circle(ng-src='{{member.picture}}')
                         span.title {{member.name}}
-                        .right-align
-                          i.mdi-action-done(ng-click="acceptMember(member_id)")
-                          i.mdi-action-highlight-remove(ng-click="declineMember(member_id)")
+                      .actions.col.s3
+                        a(href='#' ng-click="acceptMember(member_id)")
+                          i.mdi-action-done.accept.small
+                        a(href='#' ng-click="declineMember(member_id)")
+                          i.mdi-action-highlight-remove.decline.small
               .card-content
                 span.card-title.activator.grey-text.text-darken-4
                   | {{team.name}}

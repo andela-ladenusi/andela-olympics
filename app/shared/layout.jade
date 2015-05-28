@@ -4,8 +4,8 @@
     .expander.hide-on-med-and-up
         a(href='#')
             i.mdi-navigation-menu.small
-    ul.side-menu(ng-init='selected = 1')
-        li(ng-class='{active: selected === 1, inactive: !selected}')
+    ul.side-menu(ng-init='selected = 2')
+        li(ng-class='{active: selected === 1, inactive: !selected}' ng-init='hide=false' ng-if='hide')
             a.comp-details(href='#' ng-click='selected = 1')
                 i.mdi-navigation-apps.small
         li(ng-class='{active: selected === 2, inactive: !selected}')

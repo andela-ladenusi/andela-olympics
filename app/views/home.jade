@@ -1,6 +1,6 @@
 include ../shared/layout
 .overlay
-    .content.comp.row
+    .content.comp.row(ng-init='hide=false' ng-if='hide')
         h1 WHAT?
         p.col.s12.m10.l8
 
@@ -12,14 +12,6 @@ include ../shared/layout
                 .card-content.white-text
                   span.card-title HOW?
                   p
-                    | {{competition.details.when.startDate}}
-                    | -
-                    | {{competition.details.when.endDate}}
-            .col.s12.m3
-              .card.blue-grey.darken-1
-                .card-content.white-text
-                  span.card-title WHEN?
-                  p
                     | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                     | tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
             .col.s12.m3
@@ -28,6 +20,14 @@ include ../shared/layout
                   span.card-title WHO?
                   p
                     | {{competition.details.who.description}}
+            .col.s12.m3
+              .card.blue-grey.darken-1
+                .card-content.white-text
+                  span.card-title WHEN?
+                  p
+                    | {{competition.details.when.startDate}}
+                    | -
+                    | {{competition.details.when.endDate}}
 
     .content.teams.row
         h1 TEAMS
@@ -37,15 +37,15 @@ include ../shared/layout
               .waves-effect.waves-block.waves-light
                 .team-list
                   ul.team-member(ng-repeat='member in team.members')
-                    a(href='www.google.com')
-                      li.collection-item.avatar
+                    li.collection-item.avatar
+                      .user-profile.col.s9
                         img.circle(ng-src='{{member.picture}}')
                         span.title {{member.name}}
-                        .actions.right-align
-                          a.accept(href='#')
-                            i.mdi-action-done
-                          a.decline(href='#')
-                            i.mdi-action-highlight-remove
+                      .actions.col.s3
+                        a(href='#')
+                          i.mdi-action-done.accept.small
+                        a(href='#')
+                          i.mdi-action-highlight-remove.decline.small
               .card-content
                 span.card-title.activator.grey-text.text-darken-4
                   | {{team.name}}

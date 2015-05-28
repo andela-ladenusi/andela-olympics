@@ -36,12 +36,12 @@ include ../shared/layout
             .card.team-card.trans
               .waves-effect.waves-block.waves-light
                 .team-list
-                  ul.team-member(ng-repeat='member in team.members')
+                  ul.team-member(ng-repeat='(member_id, member) in team.members')
                     li.collection-item.avatar
                       .user-profile.col.s9
                         img.circle(ng-src='{{member.picture}}')
                         span.title {{member.name}}
-                      .actions.col.s3
+                      .actions.col.s3(ng-if='(currentUser.uid === team_id) && member_id !== currentUser.uid ')
                         a(href='#' ng-click="acceptMember(member_id)")
                           i.mdi-action-done.accept.small
                         a(href='#' ng-click="declineMember(member_id)")

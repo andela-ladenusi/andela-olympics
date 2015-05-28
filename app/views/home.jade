@@ -32,27 +32,29 @@ include ../shared/layout
     .content.teams.row
         h1 TEAMS
         .row
-          .card(ng-repeat='(team_id, team) in competition.teams')
-            .card-image.waves-effect.waves-block.waves-light
-              .team-list
-                .team-member(ng-repeat='member in team.members')
-                  img.circle.avatar(ng-src='{{member.picture}}', ng-alt='{{member.name}}')
-                  span.title(ng-bind-template='{{member.name}}') {{member.name}}
-            .card-content
-              span.card-title.activator.grey-text.text-darken-4
-                | {{team.name}}
-                i.mdi-navigation-more-vert.right
-            .card-reveal
-              span.card-title.grey-text.text-darken-4
-                | {{team.name}}
-                i.mdi-navigation-close.right
-              p
-                | {{team.description}}
-              .card-action.right-align
-                a(href='#' ng-click='joinTeam(team_id)')
-                  i.mdi-social-person-add
-                a(href='#' ng-click='registerTeam(team_id)')
-                  i.mdi-content-send
+          .col.s12.l3.m6(ng-repeat='(team_id, team) in competition.teams')
+            .card.team-card.trans
+              .card-image.waves-effect.waves-block.waves-light
+                .team-list
+                  ul.team-member(ng-repeat='member in team.members')
+                    li.collection-item.avatar
+                      img.circle(ng-src='{{member.picture}}')
+                      span.title {{member.name}}
+              .card-content
+                span.card-title.activator.grey-text.text-darken-4
+                  | {{team.name}}
+                  i.mdi-navigation-more-vert.right
+              .card-reveal
+                span.card-title.grey-text.text-darken-4
+                  | {{team.name}}
+                  i.mdi-navigation-close.right
+                p
+                  | {{team.description}}
+                .card-action.right-align
+                  a(href='#' ng-click='joinTeam(team_id)')
+                    i.mdi-social-person-add
+                  a(href='#' ng-click='registerTeam(team_id)')
+                    i.mdi-content-send
 
         a.btn-floating.btn-large.waves-effect.waves-light.red.modal-trigger(href='#create-team-modal')
             i.mdi-content-add

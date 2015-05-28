@@ -54,7 +54,7 @@ angular.module('olympics.services')
     			});
     		},
         
-        acceptMember: function(url, object, callback) {
+        acceptMember: function(url, callback) {
           $http.put(url, object)
           .success(function(data) {
             if(data.error) {
@@ -71,7 +71,7 @@ angular.module('olympics.services')
           });
         },
 
-        declineMember: function(url, object, callback) {
+        declineMember: function(url, callback) {
           $http.put(url, object)
           .success(function(data) {
             if(data.error) {

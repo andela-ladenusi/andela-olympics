@@ -36,16 +36,14 @@ include ../shared/layout
             .card.team-card.trans
               .waves-effect.waves-block.waves-light
                 .team-list
-                  ul.team-member(ng-repeat='member in team.members')
-                    li.collection-item.avatar
-                      .user-profile.col.s9
+                  ul.team-member(ng-repeat='(member_id, member) in team.members')
+                    a(href='#')
+                      li.collection-item.avatar
                         img.circle(ng-src='{{member.picture}}')
                         span.title {{member.name}}
-                      .actions.col.s3
-                        a(href='#')
-                          i.mdi-action-done.accept.small
-                        a(href='#')
-                          i.mdi-action-highlight-remove.decline.small
+                        .right-align
+                          i.mdi-action-done(ng-click="acceptMember(member_id)")
+                          i.mdi-action-highlight-remove(ng-click="declineMember(member_id)")
               .card-content
                 span.card-title.activator.grey-text.text-darken-4
                   | {{team.name}}

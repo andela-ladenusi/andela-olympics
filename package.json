@@ -100,6 +100,7 @@
     "protractor": "^1.5.0",
     "proxyquireify": "^1.1.0",
     "supertest": "latest",
-    "uglifyify": "^2.5.0"
+    "uglifyify": "^2.5.0",
+    "vinyl-source-stream": "^1.1.0"
   }
 }

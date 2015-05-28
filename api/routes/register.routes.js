@@ -4,6 +4,7 @@ var Firebase = require('firebase'),
 module.exports = function(app, config) {
   var root = new Firebase(config.firebase.rootRefUrl);
   var competition = root.child('competitions');
+  var usersRef = root.child('users');
 
   var check_if_competition_exist = function(data, id) {
     return _.findWhere(data, function(val, key) {
@@ -93,6 +94,7 @@ module.exports = function(app, config) {
       }
     });
   });
+
   app.route('/competitions/:competitionName').put(function(req, res) {
     var existing_competitions;
     competitionName = req.params.competitionName;
@@ -135,11 +137,21 @@ module.exports = function(app, config) {
           registered: false
         }, function(error) {
           if (!error) {
-            competition.child(req.params.competitionName).child('teams').child(req.body.team_id).child('members').child(req.body.team_id).set(true, function(error) {
-              if (error) {
-                res.json({error: 'you were unable to join the team automatically'});
-              } else {
-                res.json(req.body);
+            usersRef.child(req.body.team_id).once('value', function(userSnap) {
+              var user = userSnap.val();
+              if(user) {
+                var userObj = {
+                  name: user.name,
+                  picture: user.picture,
+                  accepted: true
+                };
+                competition.child(req.params.competitionName).child('teams').child(req.body.team_id).child('members').child(req.body.team_id).set(userObj, function(error) {
+                  if (error) {
+                    res.json({error: 'you were unable to join the team automatically'});
+                  } else {
+                    res.json(req.body);
+                  }
+                });
               }
             });
           } else {
@@ -152,30 +164,30 @@ module.exports = function(app, config) {
     });
   });
 
-app.route('/competitions/:competitionName/register').put(function(req, res) {
-  competition.child(req.params.competitionName).child('teams').once('value', function(snap) {
-    team_id_available = snap.hasChild(req.body.team_id);
-    registered_team = _.findWhere(snap.val(), function(val, key) {
-      return key === req.body.team_id;
-    });
-    check_for_false_in_team = _.contains(registered_team.members, false);
-    if (!team_id_available) {
-      res.json({
-        error: 'Team does not exist'
+  app.route('/competitions/:competitionName/register').put(function(req, res) {
+    competition.child(req.params.competitionName).child('teams').once('value', function(snap) {
+      team_id_available = snap.hasChild(req.body.team_id);
+      registered_team = _.findWhere(snap.val(), function(val, key) {
+        return key === req.body.team_id;
       });
-    } else {
-      if (check_for_false_in_team) {
+      check_for_false_in_team = _.contains(registered_team.members, false);
+      if (!team_id_available) {
         res.json({
-          error: 'You have a pending request for your team'
+          error: 'Team does not exist'
         });
       } else {
-        registered_team.registered = true;
-        competition.child(req.params.competitionName).child('teams').child(req.body.team_id).set(registered_team);
+        if (check_for_false_in_team) {
+          res.json({
+            error: 'You have a pending request for your team'
+          });
+        } else {
+          registered_team.registered = true;
+          competition.child(req.params.competitionName).child('teams').child(req.body.team_id).set(registered_team);
 
+        }
       }
-    }
+    });
   });
-});
 
 
   app.route('/competitions/:competitionName/teams/:teamId/members').post(function(req, res) {
@@ -184,13 +196,24 @@ app.route('/competitions/:competitionName/register').put(function(req, res) {
     competition.child(req.params.competitionName).child('teams').once('value', function(snap) {
       snapValues = snap.val();
       team_exist = check_if_team_exist(snapValues, team_id);
-       new_member = check_for_team_id(snapValues, req.body.user_id);
+      new_member = check_for_team_id(snapValues, req.body.user_id);
       if (team_exist && !new_member) {
-        competition.child(req.params.competitionName).child('teams').child(team_id).child('members').child(req.body.user_id).set(false, function(error) {
-          if (error) {
-            res.json({error:'Your could not join this team'});
-          } else {
-            res.json(req.body);
+        usersRef.child(req.body.user_id).once('value', function(userSnap) {
+          var user = userSnap.val();
+          if(user) {
+            var userObj = {
+              name: user.name,
+              picture: user.picture,
+              accepted: false
+            };
+            competition.child(req.params.competitionName).child('teams').child(team_id).child('members').child(req.body.user_id).set(userObj, function(error) {
+              if (error) {
+                res.json({error:'Your could not join this team'});
+              } 
+              else {
+                res.json(req.body);
+              }
+            });
           }
         });
       }
@@ -234,8 +257,8 @@ app.route('/competitions/:competitionName/register').put(function(req, res) {
       if(snapValues === null){
         res.json({error: 'invalid entry'});
       }
-      else if (!snapValues) {
-        competition.child(req.params.competitionName).child('teams').child(team_id).child('members').child(req.params.memberId).set(true, function(error) {
+      else if (!snapValues.accepted) {
+        competition.child(req.params.competitionName).child('teams').child(team_id).child('members').child(req.params.memberId).child('accepted').set(true, function(error) {
           if (error) {
             res.json({error:'You can\'t join the team'});
           } else {
@@ -243,7 +266,7 @@ app.route('/competitions/:competitionName/register').put(function(req, res) {
           }
         });
       } else {
-        competition.child(req.params.competitionName).child('teams').child(team_id).child('members').child(req.params.memberId).set(false, function(error) {
+        competition.child(req.params.competitionName).child('teams').child(team_id).child('members').child(req.params.memberId).child('accepted').set(false, function(error) {
           if (error) {
             res.json({error: 'You can\'t join the team'});
           } else {

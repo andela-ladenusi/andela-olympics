@@ -32,6 +32,7 @@ angular.module('olympics.services')
     			})
     			.error(function(err) {
             Materialize.toast('ERROR: Team could not be joined!\nPlease, try again later.', 5000, 'red darken-3');
+            console.log(err);
     				return err;
     			});
     		},
@@ -52,6 +53,7 @@ angular.module('olympics.services')
     				return err;
     			});
     		},
+        
         acceptMember: function(url, object, callback) {
           $http.put(url, object)
           .success(function(data) {

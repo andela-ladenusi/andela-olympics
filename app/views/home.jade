@@ -41,9 +41,9 @@ include ../shared/layout
                       li.collection-item.avatar
                         img.circle(ng-src='{{member.picture}}')
                         span.title {{member.name}}
-                    .col
-                      i.mdi-action-done
-                      i.mdi-action-highlight-remove
+                        .right-align
+                          i.mdi-action-done
+                          i.mdi-action-highlight-remove
               .card-content
                 span.card-title.activator.grey-text.text-darken-4
                   | {{team.name}}
@@ -54,7 +54,7 @@ include ../shared/layout
                   i.mdi-navigation-close.right
                 p
                   | {{team.description}}
-                .card-action.right-align
+                .card-action.right-align(ng-if='currentUser')
                   a(href='#' ng-click='joinTeam(team_id)' ng-hide='currentUser.uid === team_id')
                     i.mdi-social-person-add
                   a(href='#' ng-click='registerTeam(team_id)' ng-if='currentUser.uid === team_id')

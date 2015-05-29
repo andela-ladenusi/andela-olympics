@@ -1,0 +1,28 @@
+.sidenav
+    .logo
+        img.responsive-img(src='img/olympic.png')
+    .expander.hide-on-med-and-up
+        a(href='#')
+            i.mdi-navigation-menu.small
+    ul.side-menu(ng-init='selected = 2')
+        li(ng-class='{active: selected === 1, inactive: !selected}' ng-init='hide=false' ng-if='hide')
+            a.comp-details(href='#' ng-click='selected = 1')
+                i.mdi-navigation-apps.small
+        li(ng-class='{active: selected === 2, inactive: !selected}')
+            a.teams-link(href='#' ng-click='selected = 2')
+                i.mdi-social-people.small
+.top-nav.row
+    .nav-container
+        .app-name.col.s11.m3.l3.valign-wrapper
+            h3.uppercase.valign.center-align Andela Bot Olympics
+        .welcome.hide-on-small-only
+            a.profile-details(ng-if='currentUser')
+                img(ng-src='{{currentUser.picture}}')
+                span {{currentUser.name}}
+            a.btn-login(ng-if='!currentUser' ng-click='login()')
+                span Login
+            a.btn-login(ng-if='currentUser' ng-click='logout()')
+                span Logout
+video#bgvid.hide-on-med-and-down(autoplay='', loop='', poster='')
+    source(src='media/hackdown.webm', type='video/webm')
+    source(src='media/hackdown.mp4', type='video/mp4')

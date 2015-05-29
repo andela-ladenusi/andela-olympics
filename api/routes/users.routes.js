@@ -9,7 +9,7 @@ module.exports = function(app, config) {
     var user = {
       name : data.name,
       accessToken : data.accessToken,
-      gravatar: data.gravatar,
+      picture: data.picture,
       email: data.email
     };
     root.child('users').child(data.uid)

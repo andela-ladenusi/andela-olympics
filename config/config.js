@@ -1,7 +1,7 @@
 var development = {
   firebase: {
     rootRefUrl: 'https://andela-olympics-dev.firebaseio.com/',
-    secretKey: 'eMk9rNB5UWkc2E1bw5QPItx4e5JznCZIXzl1deRF'
+    secretKey: 'CpfhmeJ7beezjMuGHYJQalUPfd9Yt8UTKxm73QTI'
   }
 };
 
@@ -14,8 +14,8 @@ var test = {
 
 var production = {
   firebase: {
-    rootRefUrl: 'https://andela-olympics-dev.firebaseio.com/',
-    secretKey: 'CpfhmeJ7beezjMuGHYJQalUPfd9Yt8UTKxm73QTI'
+    rootRefUrl: 'https://andela-olympics.firebaseio.com/',
+    secretKey: 'q2tKtHOXA3LOci2DtzoHVwbwovgN9S0LHYe8pBiZ'
   }
 };
 

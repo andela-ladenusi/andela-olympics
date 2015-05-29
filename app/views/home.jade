@@ -32,7 +32,7 @@ include ../shared/layout
     .content.teams.row
         h1 TEAMS
         .row
-          .col.s12.l4.m6(ng-repeat='(team_id, team) in competition.teams')
+          .team(ng-repeat='(team_id, team) in competition.teams')
             .card.team-card.trans
               .team-list
                 ul.team-member(ng-repeat='(member_id, member) in team.members')

@@ -74,7 +74,7 @@ body
   .welcome
     position relative
     float right
-    right 80px
+    right 86px
     top 0
     height 100%
     .profile-details
@@ -94,6 +94,7 @@ body
       img, span
         line-height 80px
     .btn-login
+      margin-left 10px
       height 80px
       padding 0 30px
       background-color #EE6E73
@@ -188,9 +189,6 @@ TEAM VIEW
   height: 500px;
   background: #ffffff;
 
-i.mdi-social-person-add, i.mdi-content-send
-  font-size: 1rem;
-
 .card .card-action
   padding: 3px;
 
@@ -262,7 +260,6 @@ Create Team Modal
 
 
 .team-card
-  opacity
   padding 0 !important
 
 .team-member
@@ -283,20 +280,34 @@ li.avatar
 span.title
   color: #fff;
 
-.card-reveal p
-  padding-top: 30px;
-  color: #555;
-  font-size: 14px;
-
-.user-profile, .actions
+.card-title
+  text-transform uppercase
+  font-weight 500 !important
+.card-reveal
+  position relative
+  p
+    padding-top: 30px;
+    color: #555;
+    font-size: 14px;
+  .card-action
+    background-color #EE6E73
+    position absolute
+    bottom 0
+    right 0
+    margin-right 0
+    width 100%
+    a i
+      color #fefefe
+  
+.actions
   padding 0 !important
 
 .accept
-  color #1BE41B
+  // color #66bb6a
   &:hover
     color #fff
 .decline
-  color red
+  // color #ef5350
   &:hover
     color #fff
 

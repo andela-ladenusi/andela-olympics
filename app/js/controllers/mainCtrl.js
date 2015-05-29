@@ -23,6 +23,7 @@ angular.module('olympics.controllers')
 				// 	}
 				// });
 				$scope.competition = data;
+				console.log(data);
 			});
 		};
 

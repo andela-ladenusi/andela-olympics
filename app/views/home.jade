@@ -34,18 +34,17 @@ include ../shared/layout
         .row
           .col.s12.l4.m6(ng-repeat='(team_id, team) in competition.teams')
             .card.team-card.trans
-              .waves-effect.waves-block.waves-light
-                .team-list
-                  ul.team-member(ng-repeat='(member_id, member) in team.members')
-                    li.collection-item.avatar
-                      .user-profile.col.s9
-                        img.circle(ng-src='{{member.picture}}')
-                        span.title {{member.name}}
-                      .actions.col.s3(ng-if='(currentUser.uid === team_id) && member_id !== currentUser.uid ')
-                        a(href='#' ng-click="acceptMember(member_id)")
-                          i.mdi-action-done.accept.small
-                        a(href='#' ng-click="declineMember(member_id)")
-                          i.mdi-action-highlight-remove.decline.small
+              .team-list
+                ul.team-member(ng-repeat='(member_id, member) in team.members')
+                  li.collection-item.avatar
+                    .user-profile.col.s9
+                      img.circle(ng-src='{{member.picture}}')
+                      span.title {{member.name}}
+                    .actions.col.s3(ng-if='(currentUser.uid === team_id) && !member.accepted')
+                      a.green-text.text-accent-2(href='#' ng-click="acceptMember(member_id)")
+                        i.mdi-action-done.accept.small
+                      a.red-text.text-accent-2(href='#' ng-click="declineMember(member_id)")
+                        i.mdi-action-highlight-remove.decline.small
               .card-content
                 span.card-title.activator.grey-text.text-darken-4
                   | {{team.name}}
@@ -57,10 +56,10 @@ include ../shared/layout
                 p
                   | {{team.description}}
                 .card-action.right-align(ng-if='currentUser')
-                  a(href='#' ng-click='joinTeam(team_id)' ng-hide='currentUser.uid === team_id')
-                    i.mdi-social-person-add
-                  a(href='#' ng-click='registerTeam(team_id)' ng-if='currentUser.uid === team_id')
-                    i.mdi-content-send
+                  a.waves-effect.waves-light.waves-ripple(href='#' ng-click='joinTeam(team_id)' ng-hide='currentUser.uid === team_id')
+                    i.mdi-social-person-add.small
+                  a.waves-effect.waves-light.waves-ripple(href='#' ng-click='registerTeam(team_id)' ng-if='currentUser.uid === team_id')
+                    i.mdi-content-send.small
         a.btn-floating.btn-large.waves-effect.waves-light.red.modal-trigger.btn.tooltipped(href='#create-team-modal' data-tooltip="Create a Team" data-position="right" data-delay="50")
             i.mdi-content-add
 include modals/create-team

@@ -9,7 +9,7 @@
             a.comp-details(href='#' ng-click='selected = 1')
                 i.mdi-navigation-apps.small
         li(ng-class='{active: selected === 2, inactive: !selected}')
-            a.teams-link(href='#' ng-click='selected = 2')
+            a.teams-link.tooltipped(href='#' ng-click='selected = 2' data-tooltip="All Teams" data-position="right")
                 i.mdi-social-people.small
 .top-nav.row
     .nav-container

@@ -60,7 +60,7 @@ include ../shared/layout
                     i.mdi-social-person-add.small
                   a.waves-effect.waves-light.waves-ripple(href='#' ng-click='registerTeam(team_id)' ng-if='currentUser.uid === team_id')
                     i.mdi-content-send.small
-        a.btn-floating.btn-large.waves-effect.waves-light.red.modal-trigger.btn.tooltipped(href='#create-team-modal' data-tooltip="Create a Team" data-position="right" data-delay="50")
+        a.btn-floating.btn-large.waves-effect.waves-light.red.modal-trigger.btn.tooltipped(href='#create-team-modal' data-tooltip="Create a Team" data-position="right" data-delay="50" ng-if='currentUser')
             i.mdi-content-add
 include modals/create-team
 

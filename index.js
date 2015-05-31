@@ -11,7 +11,7 @@ var cookieParser = require('cookie-parser'),
   app = express();
 
  (function run(appdir, rootRefUrl) {
-
+  console.log('\nNode environment == ' + env + '\n');
   app.use(cookieParser());
 
   app.dir = appdir;

@@ -29,10 +29,10 @@ include ../shared/layout
               span(style='float:right')
                 p
                   | {{competition.details.when.startDate}}
-                    | -
-                    | {{competition.details.when.endDate}}
+                  | -
+                  | {{competition.details.when.endDate}}
 
-.content.teams.row
+    .content.teams.row
         h1 TEAMS
         .row
           .team(ng-repeat='(team_id, team) in competition.teams')

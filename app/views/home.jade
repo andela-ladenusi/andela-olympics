@@ -8,24 +8,27 @@ include ../shared/layout
         .row.clear
           .row
             .col.s12.m3
-              .card.blue-grey.darken-1
+              .card.blue-grey.darken-1(style='height:250px;width:300px')
+                .card-title(style='background-color:red; text-align:center;') HOW?
                 .card-content.white-text
-                  span.card-title HOW?
-                  p
-                    | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    | tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            .col.s12.m3
-              .card.blue-grey.darken-1
-                .card-content.white-text
-                  span.card-title WHO?
-                  p
-                    | {{competition.details.who.description}}
-            .col.s12.m3
-              .card.blue-grey.darken-1
-                .card-content.white-text
-                  span.card-title WHEN?
-                  p
-                    | {{competition.details.when.startDate}}
+                    span(style='float:right')
+                      p
+                        | I am a very simple card. I am good at containing small bits of information.
+                        | I am convenient because I require little markup to use effectively.
+        .col.s12.m3
+          .card.blue-grey.darken-1(style='height:250px;width:300px')
+            .card-title(style='background-color:red;text-align:center;') WHO?
+            .card-content.white-text
+              span(style='float:right')
+                p
+                  {{competition.details.who.description}}
+        .col.s12.m3
+          .card.blue-grey.darken-1(style='height:250px;width:300px')
+            .card-title(style='background-color:red;text-align:center;') WHEN?
+            .card-content.white-text
+              span(style='float:right')
+                p
+                  | {{competition.details.when.startDate}}
                     | -
                     | {{competition.details.when.endDate}}
 
@@ -76,3 +79,5 @@ script(type='text/javascript').
     });
     $('.tooltipped').tooltip({"delay": 50});
   });
+
+   // script(type='materialize/js/materialize.js').

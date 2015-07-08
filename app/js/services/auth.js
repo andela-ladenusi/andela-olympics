@@ -1,6 +1,6 @@
 angular.module('olympics.services')
-  .factory('Authentication', ['$timeout', '$cookies', '$http', '$rootScope', 'Refs',
-    function($timeout, $cookies, $http, $rootScope, Refs) {
+  .factory('Authentication', ['$timeout', '$cookies', '$http', '$rootScope', 'Refs', '$location'
+    function($timeout, $cookies, $http, $rootScope, Refs,$location) {
       return {
         login: function(cb) {
           var self = this, options = { remember: true, scope: "email" };

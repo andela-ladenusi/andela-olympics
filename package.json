@@ -20,7 +20,6 @@
   "homepage": "http://olympics.andela.co",
   "devDependencies": {
     "angular-ui-router": "^0.2.11",
-    "browserify": "^5.12.0",
     "chromedriver": "^2.12.0",
     "db-migrate": "latest",
     "gulp": "^3.8.7",

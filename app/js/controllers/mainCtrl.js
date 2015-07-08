@@ -8,7 +8,7 @@ angular.module('olympics.controllers')
 
 		$scope.logout = function() {
 			Authentication.logout();
-			$location.url('/');
+			
       Materialize.toast('You have successfully logged out!', 5000, 'teal accent-4');
 		};
 

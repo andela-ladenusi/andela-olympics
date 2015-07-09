@@ -47,26 +47,26 @@ include ../shared/layout
     .content.teams.row
         h1 TEAMS
         .row
-          .col.s12.m12.l12
-            .team.col.s12.m6.l3(ng-repeat='(team_id, team) in competition.teams')
+          .col.s12
+            .team.col.s12.m6.l4(ng-repeat='(team_id, team) in competition.teams')
               .card.team-card.trans
                 .team-list
                   ul.team-member
                     li.collection-item.avatar.row(ng-repeat='(member_id, member) in team.members')
-                      .user-profile.col.s9
+                      .user-profile.col.s10
                         img.circle(ng-src='{{member.picture}}')
-                        span.title.truncate {{member.name}}
-                      .actions.col.s3(ng-if='(currentUser.uid === team_id) && !member.accepted')
+                        span.title {{member.name}}
+                      .actions.col.s2(ng-if='(currentUser.uid === team_id) && !member.accepted')
                         a.green-text.text-accent-2(href='#' ng-click="acceptMember(member_id)")
-                          i.mdi-action-done.accept.small
+                          i.mdi-action-done.accept
                         a.red-text.text-accent-2(href='#' ng-click="declineMember(member_id)")
-                          i.mdi-action-highlight-remove.decline.small
+                          i.mdi-action-highlight-remove.decline
                 .card-content
-                  span.card-title.activator.grey-text.text-darken-4.flow-text
+                  span.card-title.activator.grey-text.text-darken-4
                     | {{team.name}}
                     i.mdi-navigation-more-vert.right
                 .card-reveal
-                  span.card-title.grey-text.text-darken-4.flow-text
+                  span.card-title.grey-text.text-darken-4
                     | {{team.name}}
                     i.mdi-navigation-close.right
                   p

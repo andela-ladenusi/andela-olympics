@@ -1,36 +1,42 @@
 include ../shared/layout
 .overlay
     .content.comp.row
-        h1 WHAT?
-        p.col.s12.m10.l8
-
-            | {{competition.details.what.description}}
-        .row.clear
-          .row
-            .col.s12.m3
-              .card.blue-grey.darken-1(style='height:250px;width:300px')
-                .card-title(style='background-color:red; text-align:center;') HOW?
-                .card-content.white-text
-                    span(style='float:right')
-                      p
-                        | I am a very simple card. I am good at containing small bits of information.
-                        | I am convenient because I require little markup to use effectively.
-        .col.s12.m3
-          .card.blue-grey.darken-1(style='height:250px;width:300px')
-            .card-title(style='background-color:red;text-align:center;') WHO?
+      h1 WHAT?
+      .what.col.s12.m12.l8
+        span {{competition.details.what.description}}
+      .row.clear
+        .col.s12.m4.l3
+          .card.blue-grey.darken-1
+            .card-title HOW?
             .card-content.white-text
-              span(style='float:right')
+                span(ng-repeat='instruction in competition.details.how.instructions')
+                  p {{instruction}}
+        .col.s12.m4.l3
+          .card.blue-grey.darken-1
+            .card-title WHO?
+            .card-content.white-text
+              span
                 p
                   {{competition.details.who.description}}
-        .col.s12.m3
-          .card.blue-grey.darken-1(style='height:250px;width:300px')
-            .card-title(style='background-color:red;text-align:center;') WHEN?
+        .col.s12.m4.l3
+          .card.blue-grey.darken-1
+            .card-title WHEN?
             .card-content.white-text
-              span(style='float:right')
+              span.center
                 p
                   | {{competition.details.when.startDate}}
-                    | -
-                    | {{competition.details.when.endDate}}
+                  | -
+                  | {{competition.details.when.endDate}}
+
+        .categories.col.s12.m12.l9
+          .title.col.s12
+            span Winning Categories
+          ul.category.col.s12.blue-grey.darken-1
+            li.col.s12.m6.l3 Most Innovative
+            li.col.s12.m6.l3 Most Useful
+            //- li.col.s2 Best UX
+            li.col.s12.m6.l3 Staffs' Favorite
+            li.col.s12.m6.l3 Overall Winner
 
     .content.teams.row
         h1 TEAMS

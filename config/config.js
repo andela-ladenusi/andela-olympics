@@ -1,36 +1,18 @@
 var development = {
   firebase: {
-    rootRefUrl: 'https://andela-olympics-dev.firebaseio.com/',
-    secretKey: 'CpfhmeJ7beezjMuGHYJQalUPfd9Yt8UTKxm73QTI'
-  }
-};
-
-var test = {
-  firebase: {
-    rootRefUrl: 'https://andela-olympics-dev.firebaseio.com/',
-    secretKey: 'CpfhmeJ7beezjMuGHYJQalUPfd9Yt8UTKxm73QTI'
-  }
-};
-
-var production = {
-  firebase: {
-    rootRefUrl: 'https://andela-olympics.firebaseio.com/',
-    secretKey: 'q2tKtHOXA3LOci2DtzoHVwbwovgN9S0LHYe8pBiZ'
-  }
-};
-
-var staging = {
-  firebase: {
-    rootRefUrl: 'https://andela-olympics-dev.firebaseio.com/',
-    secretKey: 'CpfhmeJ7beezjMuGHYJQalUPfd9Yt8UTKxm73QTI'
+    apiKey: "AIzaSyBzwDH_eg5zL_VhVVRllBY-r-YnbHoH2ZI",
+    authDomain: "iot-hackathon-286cf.firebaseapp.com",
+    databaseURL: "https://iot-hackathon-286cf.firebaseio.com",
+    storageBucket: "iot-hackathon-286cf.appspot.com",
+    serviceAccount: './credentials/iot-hackathon-51f3693bbce3.json'
   }
 };
 
 var config = {
   development: development,
-  test: test,
-  production: production,
-  staging: staging
+  test: development,
+  production: development,
+  staging: development
 };
 
 module.exports = config;

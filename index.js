@@ -3,53 +3,55 @@ global.t = require('moment');
 
 var cookieParser = require('cookie-parser'),
   Firebase = require("firebase"),
+  express = require('express'),
   env = process.env.NODE_ENV || 'development',
   config = require('./config/config')[env],
   routes = require('./api/routes'),
-  express = require('express'),
   bodyParser = require('body-parser'),
   app = express();
 
- (function run(appdir, rootRefUrl) {
+(function run(appdir, firebaseConfig) {
   app.use(cookieParser());
 
   app.dir = appdir;
 
-  // things to do on each request
+  // Global middleware
   app.use(function (req, res, next) {
-    // log each request in development environment
-    if(env !== 'production') console.log(t().format('HH:MM'), req.method, req.url, req.socket.bytesRead); 
-    // tell the client what firebase to use
-    res.cookie('rootRef', rootRefUrl);
+    // Log each request in development environment
+    if(env !== 'production')
+      console.log(t().format('HH:MM'), req.method, req.url, req.socket.bytesRead);
 
+    // Create cookie variables
+    res.cookie('apiKey', firebaseConfig.apiKey);
+    res.cookie('authDomain', firebaseConfig.authDomain);
+    res.cookie('databaseURL', firebaseConfig.databaseURL);
+    res.cookie('storageBucket', firebaseConfig.storageBucket);
     next();
   });
 
   // static files
   app.use(express.static(app.dir + '/public'));
-  
+
   // Standard error handling
   app.use(function(err, req, res, next){
     console.error(err.stack);
     res.status(500).send('Something broke!');
   });
-  
-  // to support JSON-encoded bodies
+
+  // To support JSON-encoded bodies
   app.use(bodyParser.json());
-  
-  // to support URL-encoded bodies
+
+  // To support URL-encoded bodies
   app.use(bodyParser.urlencoded({
     extended: true
   }));
 
-  routes(app, config);  
+  routes(app, config);
 
   var server = app.listen(process.env.PORT || 5555, function() {
     console.log('Listening on port %d', server.address().port);
   });
 
-})(process.cwd(), config.firebase.rootRefUrl);
+})(process.cwd(), config.firebase);
 
 module.exports = app;
-
-

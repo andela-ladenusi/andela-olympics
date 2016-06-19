@@ -69,10 +69,10 @@ gulp.task('browserify', function() {
   var b = browserify();
   b.add('./app/js/application.js');
   return b.bundle()
-  .on('success', gutil.log.bind(gutil, 'Browserify Rebundled'))
-  .on('error', gutil.log.bind(gutil, 'Browserify Error: in browserify gulp task'))
-  .pipe(source('index.js'))
-  .pipe(gulp.dest('./public/js'));
+    .on('success', gutil.log.bind(gutil, 'Browserify Rebundled'))
+    .on('error', gutil.log.bind(gutil, 'Browserify Error: in browserify gulp task'))
+    .pipe(source('index.js'))
+    .pipe(gulp.dest('./public/js'));
 });
 
 gulp.task('watch', function() {

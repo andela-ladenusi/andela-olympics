@@ -1,6 +1,6 @@
 // defining modules
-angular.module('olympics.controllers', []);
-angular.module('olympics.services', []);
+angular.module('hackathons.controllers', []);
+angular.module('hackathons.services', []);
 
 /* loading services */
 require('./services/auth.js');
@@ -13,25 +13,29 @@ require('./services/http.requests.js');
 // loading controller
 require('./controllers/mainCtrl.js');
 
-window.Olympics = angular.module('Olympics', [
-	'ngRoute',
+var Olympics = angular.module('Olympics', [
+	'ui.router',
 	'ngCookies',
 	'firebase',
 	'olympics.controllers',
 	'olympics.services'
 ]);
 
-Olympics.config(['$routeProvider','$locationProvider',
-	function($routeProvider, $locationProvider) {
+Olympics.config(['$stateProvider','$urlRouterProvider', '$locationProvider',
+	function($stateProvider, $urlRouterProvider, $locationProvider) {
 		$locationProvider.html5Mode(true);
-		$routeProvider
-			.when('/', {
+		$stateProvider
+			.state('home', {
+        url: '/',
 				templateUrl: 'views/home.html',
 				controller: 'mainCtrl'
 			})
-			.otherwise({
-				templateUrl: '404.html'
-			});
+      .state('404', {
+        url: '/404',
+        templateUrl: '404.html'
+      });
+
+    $urlRouterProvider.otherwise('/404');
 	}]);
 
 Olympics.run(['$rootScope', 'Authentication', 'Refs',
@@ -53,13 +57,6 @@ Olympics.run(['$rootScope', 'Authentication', 'Refs',
       }
     });
   }]);
-
-
-
-
-
-
-
 
 $(function() {
 	$('.how-link').on('click', function() {

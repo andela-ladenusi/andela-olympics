@@ -6,7 +6,7 @@ var teams = require('./teams.routes'),
 
 module.exports = function(app, config) {
   var firebaseApp = firebase.initializeApp(config.firebase);
-
+  
   teams(app, firebaseApp, config);
   users(app, firebaseApp, config);
   keepAlive(app);

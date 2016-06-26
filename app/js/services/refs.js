@@ -1,22 +1,25 @@
 angular.module('olympics.services')
-  .factory('Refs', ['$cookies', '$firebase',
-    function($cookies, $firebase) {
+  .factory('Refs', ['$cookies', '$firebaseAuth',
+    function($cookies, $firebaseAuth) {
       let config = {
-        apiKey: $cookies.apiKey,
-        authDomain: $cookies.authDomain,
-        databaseURL: $cookies.databaseURL,
-        storageBucket: $cookies.storageBucket,
+        apiKey: $cookies.get('apiKey'),
+        authDomain: $cookies.get('authDomain'),
+        databaseURL: $cookies.get('databaseURL'),
+        storageBucket: $cookies.get('storageBucket'),
       }
 
       var app = firebase.initializeApp(config);
 
-      var rootRef = app.database()
+      var db = app.database()
 
       return {
-        root: rootRef,
-        users: rootRef.ref('users'),
-        competitions: rootRef.ref('competitions'),
-        iothackathon: rootRef.ref('competitions/iothackathon'),
+        root: db.ref(),
+        users: db.ref('users'),
+        competitions: db.ref('competitions'),
+        iothackathon: db.ref('competitions/iothackathon'),
+        _auth: function() {
+          return $firebaseAuth(app.auth())
+        }
       };
     }
   ]);

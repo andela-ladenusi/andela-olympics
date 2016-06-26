@@ -12,7 +12,7 @@ var cookieParser = require('cookie-parser'),
 
 (function run(appdir, firebaseConfig) {
   app.use(cookieParser());
-
+  
   app.dir = appdir;
 
   // Global middleware
@@ -29,9 +29,6 @@ var cookieParser = require('cookie-parser'),
     next();
   });
 
-  // static files
-  app.use(express.static(app.dir + '/public'));
-
   // Standard error handling
   app.use(function(err, req, res, next){
     console.error(err.stack);
@@ -45,6 +42,9 @@ var cookieParser = require('cookie-parser'),
   app.use(bodyParser.urlencoded({
     extended: true
   }));
+
+  // static files
+  app.use(express.static(app.dir + '/public'));
 
   routes(app, config);
 

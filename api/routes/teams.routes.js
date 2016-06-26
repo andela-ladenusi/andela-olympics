@@ -130,7 +130,7 @@ module.exports = function(app, firebaseApp, config) {
         check_for_team_id(teams, req.body.team_id);
         if (team_id_available) {
           res.json({
-            error: 'You are already a memeber of a team'
+            error: 'You are already a member of a team'
           });
         } else {
           competition.child(req.params.competitionName).child('teams').child(req.body.team_id).set({
@@ -184,7 +184,6 @@ module.exports = function(app, firebaseApp, config) {
           } else {
             registered_team.registered = true;
             competition.child(req.params.competitionName).child('teams').child(req.body.team_id).set(registered_team);
-
           }
         }
       });
@@ -249,7 +248,8 @@ module.exports = function(app, firebaseApp, config) {
           });
         }
       });
-    }).put(function(req, res) {
+    })
+    .put(function(req, res) {
       team_id = req.params.teamId;
       competition_name = req.params.competitionName;
       competition.child(req.params.competitionName).child('teams').child(team_id).child('members').child(req.params.memberId).once('value', function(snap) {

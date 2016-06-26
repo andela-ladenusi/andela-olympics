@@ -1,6 +1,6 @@
 // defining modules
-angular.module('hackathons.controllers', []);
-angular.module('hackathons.services', []);
+angular.module('olympics.controllers', []);
+angular.module('olympics.services', []);
 
 /* loading services */
 require('./services/auth.js');
@@ -40,27 +40,26 @@ Olympics.config(['$stateProvider','$urlRouterProvider', '$locationProvider',
 
 Olympics.run(['$rootScope', 'Authentication', 'Refs',
   function($rootScope, Authentication, Refs) {
-  	Refs.root.onAuth(function(authData) {
-  		if(authData) {
-  			var user = {
-          uid: authData.uid,
-          name: authData.google.displayName,
-          email: authData.google.email,
-          accessToken: authData.google.accessToken,
-          picture: authData.google.cachedUserProfile.picture
+    Refs._auth().$onAuthStateChanged(function(firebaseUser) {
+      if(!firebaseUser) {
+        Authentication.logout()
+      } else {
+        var user = {
+          uid: firebaseUser.uid,
+          name: firebaseUser.displayName,
+          email: firebaseUser.email,
+          accessToken: firebaseUser.refreshToken,
+          picture: firebaseUser.photoURL
         };
-  			$rootScope.currentUser = user;
-  			return $rootScope.currentUser;
-  		}
-      else {
-      	Authentication.logout();
+        $rootScope.currentUser = user;
+        return $rootScope.currentUser;
       }
     });
   }]);
 
 $(function() {
-	$('.how-link').on('click', function() {
+	$('a.details-link').on('click', function() {
 		console.log("Clicked");
-		$('.overlay').scrollTo('.content.how', 800);
+		$('.overlay').scrollTo('.competition-details', 800);
 	});
 });

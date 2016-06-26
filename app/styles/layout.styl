@@ -5,7 +5,7 @@ html, body
 
 body
   background-color #EEE
-  font-family 'Open Sans', sans-serif
+  font-family 'Din Pro', sans-serif
   position relative
 
 .uppercase
@@ -51,65 +51,40 @@ body
         color #fff
 
 .top-nav
-  background-color #fff
+  background-color #3359DF
+  box-shadow 0 2px 10px 0 rgba(0, 0, 0, 0.5)
   position fixed
   top 0
-  left 80px
+  left 0
   height 80px
   right 0
   width 100%
-  .nav-container
-    position relative
-    width 100%
-    height 100%
-  .app-name
-    background-color #EE6E73
-    height 100%
-    width auto
-    text-align center
-    h3
-      color #fff
-      font-size 24px
-      width 100%
-  .welcome
-    position relative
-    float right
-    right 86px
-    top 0
-    height 100%
+  .user-info
     .profile-details
-      height 80px
       text-align center
       padding 0 10px
-      color #000
-      &:hover
-        background-color #fff
-        color #EE6E73
+      color #fff
       img
         border-radius 50% 50%
         height 50px
         width 50px
-        border 4px solid #EE6E73
-
-      img, span
-        line-height 80px
     .btn-login
+      background #fff
       margin-left 10px
-      height 80px
-      padding 0 30px
-      background-color #EE6E73
-      color #fff
+      padding 10px 15px
+      color #3359DF
       font-weight 400
       text-align center
       display inline-block
-      line-height 80px
-      color #EE6E73
-      background-color #fff
       font-size 1.0em
       cursor pointer
+      border-radius 2px
+      box-shadow 0 2px 4px 0 rgba(0,0,0,0.2)
+      transition 0.4s
       &:hover
-        background-color #EE6E73
-        color #fff
+        box-shadow 0 2px 10px 0 rgba(0,0,0,0.4)
+        transform translateY(-3px)
+        
 
 ::-webkit-scrollbar
     width 6px
@@ -123,14 +98,25 @@ body
 .overlay
   position fixed
   top 80px
-  left 80px
+  left 0
   right 0
   bottom 0
-  width auto
-  height auto
   z-index 10
   background-color rgba(0,0,0,0.65)
   overflow-y scroll
+  .montage
+    height 100%
+  .competition-details
+    background #FFF
+    padding 90px 0
+    .header
+      margin-bottom 50px
+  .team-details
+    background #16171D
+    padding 90px 0
+    .header
+      color #fff
+      margin-bottom 50px
   .content
     padding 3.0em
     height 100%
@@ -144,7 +130,6 @@ body
         font-size 1.2em
         text-transform uppercase
       .category
-        // background-color #546E7A
         li
           padding 20px 0
           text-align center
@@ -183,18 +168,25 @@ video#bgvid
 
 h1
   color #fff
-  font-family "Montserrat", Arial, sans-serif
-  font-weight 700
+  font-weight 400
   font-size 4.0em
-  margin-bottom 0.6em
+  margin-bottom 15px
+
+h2
+  color #2A3039
+  font-size 2.0em
 
 p
-  font-family "Open Sans", sans-serif
   line-height 1.8em
   font-size 1.3em
   color #DEDEDE
   font-weight 100
 
+.more-button
+  border-radius 2px
+  border solid 1px #fff
+  color #fff
+  padding 15px 20px
 /*************************
 TEAM VIEW
 **************************/
@@ -218,6 +210,53 @@ TEAM VIEW
   height: 500px;
   background: #ffffff;
 
+custom-card-title()
+  .title
+    color #536171
+    font-size 1.5em
+    font-weight 500
+    margin-bottom 30px
+    
+custom-card-text()
+  p
+    color #8091A5
+    font-size 1.0em
+    font-weight 400
+    &.em
+      color #3359DF
+      font-size 1.0em
+      font-weight 500
+
+custom-card-content()
+  .content
+    padding 3em
+    .icon
+      color #536171
+      margin-bottom 30px
+      i
+        font-size 2.7em  
+    custom-card-title()
+    custom-card-text()
+
+.custom-card
+  text-align center
+  background #fff
+  border-radius 2px
+  border solid 1px #efefef
+  box-shadow: 0 3px 5px 0 rgba(0,0,0,0.08)
+  color #8091A5
+  transition 0.4s
+  &:hover
+    box-shadow 0 5px 14px 2px rgba(0,0,0,0.1)
+    transform translateY(-3px)
+  custom-card-content()
+      
+
+.transparent-card
+  text-align center
+  color #8091A5
+  custom-card-content()
+  
 .card .card-action
   padding: 3px;
 
@@ -232,9 +271,6 @@ TEAM VIEW
 img
   vertical-align: middle;
   margin-right: 5px;
-
-.team-member
-  display: block;
 
 .clear
   clear: both;
@@ -281,67 +317,63 @@ Create Team Modal
       color: #546e7a;
 
 .team-list
-  // padding-left 10px;
-  background-color: #929DA1
-  height: 250px;
-  width: 100%;
-  overflow-y: scroll;
-  padding-top 10px
+  height 250px
+  width 100%
+  overflow-y scroll
+  padding 15px 25px
   li
-    padding-bottom 10px
-    margin 0
-
+    height 60px
+    .title
+      color: #2e2e2e
 
 .team-card
   .card-content
-    padding 10px
-
-li.avatar
-  // height 60px
-  .actions
-    height 100%
-    a
-      display inline-block
-      width 50%
-      text-align center
+    padding 10px 25px
+  .card-reveal
+    background #6376F9
+    padding 20px 25px
+    border-radius 2px
+    p
+      padding-top: 20px;
+      color: #555;
+      font-size: 14px;
+    .card-action
+      background-color #3359DF
+      position absolute
+      bottom 0
+      right 0
+      margin-right 0
+      width 100%
+      padding 15px 0
+      border-radius 0 0 2px 2px
+      a i
+        color #fefefe
 
 span.title
   color: #fff;
   font-size 14px
   
-.card-content span i, .card-reveal span i
-  color #EE6E73
+.card-content span i
+  color #3359DF
+
+.card-reveal span i
+  color #fff
 
 .card-title
-  text-transform uppercase
   font-weight 500 !important
-.card-reveal
-  position relative
-  p
-    padding-top: 30px;
-    color: #555;
-    font-size: 14px;
-  .card-action
-    background-color #EE6E73
-    position absolute
-    bottom 0
-    right 0
-    margin-right 0
-    width 100%
-    a i
-      color #fefefe
   
 .actions
   padding 10px 0 !important
 
-.accept
-  font-size 1.2rem
-  &:hover
-    color #fff
-.decline
-  font-size 1.2rem
-  &:hover
-    color #fff
+.spacer
+  margin-top 120px
+
+.spacer-below
+  margin-bottom 40px
+  
+.small.divider
+  width 100px
+  margin 15px auto
 
 @media (max-width: 940px) {
   .overlay .content {
